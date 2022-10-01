@@ -32,6 +32,26 @@ const DATASET: IDataset[] = [
     labelType: "word",
     pricePerTask: 1.5,
   },
+  {
+    question: "ใช่สิงโตรึเปล่า ?",
+    labelType: "image",
+    pricePerTask: 0.25,
+  },
+  {
+    question: "เสียงนี้คืออะไร",
+    labelType: "sound",
+    pricePerTask: 1.5,
+  },
+  {
+    question: "คำอ่านภาษาไทย",
+    labelType: "speech",
+    pricePerTask: 1.5,
+  },
+  {
+    question: "คำเหมือน",
+    labelType: "word",
+    pricePerTask: 1.5,
+  },
 ];
 
 function getLabelTypeIcon(labelType: TLabelType): ReactNode {
@@ -79,6 +99,36 @@ const Landing: FC = () => {
           </button>
         </div>
         <div className="dataset-grid-container">
+          {DATASET.map((dataset: IDataset, datasetIndex: number) => (
+            <div key={datasetIndex} className="card-container">
+              <div className="header">{dataset.question}</div>
+              <div className="type-image">
+                {getLabelTypeIcon(dataset.labelType)}
+              </div>
+              <div className="price-container">
+                <div className="price">
+                  <div>1.5 บาท</div>
+                  <div>/</div>
+                  <div>{getAnswerType(dataset.labelType)}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+          {DATASET.map((dataset: IDataset, datasetIndex: number) => (
+            <div key={datasetIndex} className="card-container">
+              <div className="header">{dataset.question}</div>
+              <div className="type-image">
+                {getLabelTypeIcon(dataset.labelType)}
+              </div>
+              <div className="price-container">
+                <div className="price">
+                  <div>1.5 บาท</div>
+                  <div>/</div>
+                  <div>{getAnswerType(dataset.labelType)}</div>
+                </div>
+              </div>
+            </div>
+          ))}
           {DATASET.map((dataset: IDataset, datasetIndex: number) => (
             <div key={datasetIndex} className="card-container">
               <div className="header">{dataset.question}</div>

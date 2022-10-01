@@ -27,11 +27,12 @@ $card-height: 150px;
 
     .dataset-grid-container {
       display: grid;
-      height: calc(100% - $navbar-height);
+      max-height: calc(100% - $navbar-height - 40px);
       justify-content: center;
       padding-top: 20px;
+      padding-bottom: 20px;
       gap: 30px 30px;
-      //   background-color: orangered;
+      // background-color: orangered;
       overflow-y: scroll;
 
       .card-container {

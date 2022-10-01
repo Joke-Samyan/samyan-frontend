@@ -48,7 +48,6 @@
       }
     }
 
-    .create-dataset-btn-icon,
     .create-dataset-btn {
       margin-left: 20px;
       font-size: 0.9rem;
@@ -56,6 +55,9 @@
 
     .create-dataset-btn-icon {
       display: none;
+      margin-left: 20px;
+      aspect-ratio: 1;
+      border-radius: 50%;
     }
   }
 
@@ -65,7 +67,7 @@
       display: none;
     }
     .logo,
-    .create-dataset-btn-icon {
+    .right-content > .create-dataset-btn-icon {
       display: block;
     }
   }
