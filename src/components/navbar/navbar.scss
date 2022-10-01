@@ -1,0 +1,44 @@
+@import "../../assets/styles/styles.scss";
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 1vh;
+  padding: $navbar-padding;
+  background-color: $secondary-color;
+
+  .right-content {
+    display: flex;
+    align-items: center;
+    // background-color: red;
+
+    .btn-container {
+      display: flex;
+      align-items: center;
+
+      p {
+        display: flex;
+        width: 100px;
+        align-items: center;
+        justify-content: center;
+        height: $button-height;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        font-size: 0.8rem;
+        background-color: white;
+      }
+
+      button {
+        font-size: 0.8rem;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+    .create-dataset-btn {
+      margin-left: 20px;
+      font-size: 0.9rem;
+    }
+  }
+}
