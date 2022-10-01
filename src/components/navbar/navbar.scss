@@ -4,9 +4,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 1vh;
-  padding: $navbar-padding;
+  height: $navbar-height;
+  padding-left: $navbar-padding;
+  padding-right: $navbar-padding;
   background-color: $secondary-color;
+  box-shadow: $default-shadow;
+
+  h2 {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    display: none;
+    width: 40px;
+  }
 
   .right-content {
     display: flex;
@@ -36,9 +48,25 @@
       }
     }
 
+    .create-dataset-btn-icon,
     .create-dataset-btn {
       margin-left: 20px;
       font-size: 0.9rem;
+    }
+
+    .create-dataset-btn-icon {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    h2,
+    .create-dataset-btn {
+      display: none;
+    }
+    .logo,
+    .create-dataset-btn-icon {
+      display: block;
     }
   }
 }

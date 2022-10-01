@@ -1,0 +1,92 @@
+@import "../assets/styles/styles.scss";
+
+$card-width: 200px;
+$card-height: 150px;
+
+.landing-container {
+  //   background-color: brown;
+
+  .body {
+    height: calc(100vh - $navbar-height - 20px);
+
+    .filter-container {
+      display: flex;
+      flex-direction: row-reverse;
+      height: $navbar-height;
+      align-items: center;
+      padding-left: $navbar-padding;
+      padding-right: $navbar-padding;
+      //   background-color: red;
+
+      button {
+        display: flex;
+        align-items: center;
+        font-size: 0.8rem;
+      }
+    }
+
+    .dataset-grid-container {
+      display: grid;
+      height: calc(100% - $navbar-height);
+      justify-content: center;
+      padding-top: 20px;
+      gap: 30px 30px;
+      //   background-color: orangered;
+      overflow-y: scroll;
+
+      .card-container {
+        width: $card-width;
+        height: $card-height;
+        border-radius: 5px;
+        background-color: $secondary-color;
+        box-shadow: $default-shadow;
+        transition: transform 200ms ease;
+        transform: scale(1);
+        cursor: pointer;
+
+        .header {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 20%;
+          //   background-color: yellowgreen;
+        }
+
+        .type-image {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 50%;
+          //   background-color: lime;
+        }
+
+        .price-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 30%;
+          //   background-color: green;
+
+          .price {
+            display: flex;
+            justify-content: space-evenly;
+            width: 60%;
+            border-radius: 3px;
+            background-color: rgba($color: $primary-color, $alpha: 0.3);
+          }
+        }
+      }
+
+      .card-container:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    @media (min-width: $card-width) {
+      .dataset-grid-container {
+        // background-color: orange;
+        grid-template-columns: repeat(auto-fit, $card-width);
+      }
+    }
+  }
+}
