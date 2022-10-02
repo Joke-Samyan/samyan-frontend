@@ -1,7 +1,16 @@
-import React from "react";
+import { FC } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./navbar.scss";
 
-const Navbar = () => {
+const Navbar: FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  function navigateToCreateDataset() {
+    if (location.pathname !== "/create-dataset") {
+      navigate("/create-dataset");
+    }
+  }
   return (
     <div className="navbar-container">
       <h2>KODWANG </h2>
@@ -15,8 +24,18 @@ const Navbar = () => {
           <p>{5} บาท</p>
           <button>ถอนเงิน</button>
         </div>
-        <button className="create-dataset-btn">สร้างชุดข้อมูล</button>
-        <button className="create-dataset-btn-icon">+</button>
+        <button
+          className="create-dataset-btn"
+          onClick={navigateToCreateDataset}
+        >
+          สร้างชุดข้อมูล
+        </button>
+        <button
+          className="create-dataset-btn-icon"
+          onClick={navigateToCreateDataset}
+        >
+          +
+        </button>
       </div>
     </div>
   );

@@ -1,18 +1,21 @@
 @import "../../assets/styles/styles.scss";
 
 .create-dataset-container {
-  .body {
+  .create-dataset-body {
     display: flex;
     flex-direction: column;
     height: calc(100vh - $navbar-height - 60px); // all - navbar - cardMargin
     align-items: center;
 
-    .card-container {
+    .create-dataset-card-container {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      width: 50%;
+      width: 60%;
       min-width: 350px;
+      max-width: 1200px;
+      padding-left: $navbar-padding;
+      padding-right: $navbar-padding;
       margin: 30px;
       background-color: $secondary-color;
 
@@ -24,6 +27,7 @@
       label {
         margin-bottom: 5px;
       }
+      select,
       input {
         width: 50%;
         margin-bottom: 10px;
@@ -38,7 +42,7 @@
       height: 300px;
       width: 80%;
       margin: 10px 10% 20px 10%;
-      //   aspect-ratio: 1;
+      border-radius: 10px;
       border: 2px dashed $primary-color;
     }
 
@@ -46,6 +50,7 @@
       display: flex;
       width: 100%;
       justify-content: center;
+      margin-bottom: 20px;
     }
   }
 }

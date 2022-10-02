@@ -1,5 +1,5 @@
 import { FilterAlt } from "@mui/icons-material";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import DatasetCard from "../components/datasetCard/DatasetCard";
 import Navbar from "../components/navbar/Navbar";
 import { IDataset } from "../interfaces/IDataset";
@@ -32,43 +32,43 @@ const Landing: FC = () => {
       labelType: "speech",
       pricePerTask: 1.45,
     },
-    // {
-    //   uuid: "d",
-    //   question: "คำเหมือน",
-    //   labelType: "word",
-    //   pricePerTask: 1.55,
-    // },
-    // {
-    //   uuid: "e",
-    //   question: "ใช่สิงโตรึเปล่า ?",
-    //   labelType: "image",
-    //   pricePerTask: 0.425,
-    // },
-    // {
-    //   uuid: "f",
-    //   question: "เสียงนี้คืออะไร",
-    //   labelType: "sound",
-    //   pricePerTask: 1.5,
-    // },
-    // {
-    //   uuid: "g",
-    //   question: "คำอ่านภาษาไทย",
-    //   labelType: "speech",
-    //   pricePerTask: 1.56,
-    // },
+    {
+      uuid: "d",
+      question: "คำเหมือน",
+      labelType: "word",
+      pricePerTask: 1.55,
+    },
+    {
+      uuid: "e",
+      question: "ใช่สิงโตรึเปล่า ?",
+      labelType: "image",
+      pricePerTask: 0.425,
+    },
+    {
+      uuid: "f",
+      question: "เสียงนี้คืออะไร",
+      labelType: "sound",
+      pricePerTask: 1.5,
+    },
+    {
+      uuid: "g",
+      question: "คำอ่านภาษาไทย",
+      labelType: "speech",
+      pricePerTask: 1.56,
+    },
   ]);
 
-  function handleAddDataset(): void {
-    setDatasetList([
-      {
-        uuid: new Date().toISOString(),
-        question: "คำอ่านภาษาไทย",
-        labelType: "speech",
-        pricePerTask: 1.5,
-      },
-      ...datasetList,
-    ]);
-  }
+  // function handleAddDataset(): void {
+  //   setDatasetList([
+  //     {
+  //       uuid: new Date().toISOString(),
+  //       question: "คำอ่านภาษาไทย",
+  //       labelType: "speech",
+  //       pricePerTask: 1.5,
+  //     },
+  //     ...datasetList,
+  //   ]);
+  // }
 
   function handleSortDataset(): void {
     const newDataset = datasetList.sort(
@@ -81,7 +81,7 @@ const Landing: FC = () => {
   return (
     <div className="landing-container">
       <Navbar />
-      <div className="body">
+      <div className="landing-body">
         <div className="filter-container">
           <button
             onClick={() => {
