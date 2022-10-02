@@ -11,6 +11,9 @@ $default-shadow: 2px 2px 10px 1px
     $alpha: 0.5,
   );
 
+$card-width: 200px;
+$card-height: 150px;
+
 button {
   height: $button-height;
   border-radius: 5px;

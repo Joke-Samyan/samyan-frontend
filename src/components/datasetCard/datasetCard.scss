@@ -1,0 +1,48 @@
+@import "../../assets/styles/styles.scss";
+
+.card-container {
+  width: $card-width;
+  height: $card-height;
+  border-radius: 5px;
+  background-color: $secondary-color;
+  box-shadow: $default-shadow;
+  transition: transform 200ms ease;
+  transform: scale(1);
+  cursor: pointer;
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    //   background-color: yellowgreen;
+  }
+
+  .type-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    //   background-color: lime;
+  }
+
+  .price-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+    //   background-color: green;
+
+    .price {
+      display: flex;
+      justify-content: space-evenly;
+      width: 60%;
+      border-radius: 3px;
+      background-color: rgba($color: $primary-color, $alpha: 0.3);
+    }
+  }
+}
+
+.card-container:hover {
+  transform: scale(1.05);
+}

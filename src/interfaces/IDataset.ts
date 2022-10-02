@@ -1,4 +1,5 @@
 export interface IDataset {
+  uuid: string;
   question: string;
   labelType: TLabelType;
   pricePerTask: number;
