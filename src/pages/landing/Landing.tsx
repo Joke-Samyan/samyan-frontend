@@ -1,8 +1,8 @@
 import { FilterAlt } from "@mui/icons-material";
 import { FC, useState } from "react";
-import DatasetCard from "../components/datasetCard/DatasetCard";
-import Navbar from "../components/navbar/Navbar";
-import { IDataset } from "../interfaces/IDataset";
+import DatasetCard from "../../components/datasetCard/DatasetCard";
+import Navbar from "../../components/navbar/Navbar";
+import { IDataset } from "../../interfaces/IDataset";
 import "./landing.scss";
 import FlipMove from "react-flip-move";
 

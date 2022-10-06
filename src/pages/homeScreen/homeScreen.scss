@@ -1,0 +1,43 @@
+@import "../../assets/styles/styles.scss";
+
+.landing-container1 {
+    //background-color: rgb(189, 111, 111);
+
+  .landing-body1 {
+    height: calc(100vh - $navbar-height - 20px);
+
+    .login-registerButton {
+      display: flex;
+      flex-direction: row-reverse;
+      height: $navbar-height;
+      align-items: center;
+      padding-left: $navbar-padding;
+      padding-right: $navbar-padding;
+      background-color: rgb(255, 255, 255);
+
+      button {
+        display: flex;
+        align-items: center;
+        font-size: 0.8rem;
+      }
+    }
+
+    .dataset-grid-container {
+      display: grid;
+      max-height: calc(100% - $navbar-height - 40px);
+      justify-content: center;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      gap: 30px 30px;
+      // background-color: orangered;
+      overflow-y: scroll;
+    }
+
+    @media (min-width: $card-width) {
+      .dataset-grid-container {
+        // background-color: orange;
+        grid-template-columns: repeat(auto-fit, $card-width);
+      }
+    }
+  }
+}
