@@ -1,5 +1,5 @@
-$primary-color: #d72323; //#D72323
-$secondary-color: #f5eded; //#F5EDED
+$primary-color: #FFF2AF; //#D72323
+$secondary-color: #FFC979; //#F5EDED
 
 $navbar-height: 60px;
 $navbar-padding: 30px;
@@ -19,7 +19,7 @@ button {
   border-radius: 5px;
   border-width: 0;
   font-size: 18px;
-  color: white;
+  color: rgb(0, 0, 0);
   background-color: $primary-color;
   transition: transform 200ms ease;
   box-shadow: $default-shadow;
