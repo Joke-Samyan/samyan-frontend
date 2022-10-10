@@ -1,4 +1,4 @@
-export const labelTypeArray = ["image", "sound", "speech", "word"] as const;
+export const labelTypeArray = ["image", "sound", "word"] as const;
 
 export const answerTypeArray = ["text", "multiple choice"];
 

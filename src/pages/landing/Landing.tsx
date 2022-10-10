@@ -29,7 +29,7 @@ const Landing: FC = () => {
     {
       uuid: "c",
       question: "คำอ่านภาษาไทย",
-      labelType: "speech",
+      labelType: "sound",
       pricePerTask: 1.45,
     },
     {
@@ -53,7 +53,7 @@ const Landing: FC = () => {
     {
       uuid: "g",
       question: "คำอ่านภาษาไทย",
-      labelType: "speech",
+      labelType: "sound",
       pricePerTask: 1.56,
     },
   ]);

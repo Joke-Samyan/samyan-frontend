@@ -18,8 +18,6 @@ function getLabelTypeIcon(labelType: TLabelType): ReactNode {
       return <Image sx={iconStyle} />;
     case "sound":
       return <VolumeUp sx={iconStyle} />;
-    case "speech":
-      return <KeyboardVoice sx={iconStyle} />;
     case "word":
       return <Chat sx={iconStyle} />;
     default:
@@ -33,8 +31,6 @@ function getAnswerType(labelType: TLabelType): string {
       return "รูป";
     case "sound":
       return "ฟัง";
-    case "speech":
-      return "เสียง";
     case "word":
       return "คำตอบ";
     default:

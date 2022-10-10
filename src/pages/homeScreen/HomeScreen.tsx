@@ -29,7 +29,7 @@ const HomeScreen: FC = () => {
     {
       uuid: "c",
       question: "คำอ่านภาษาไทย",
-      labelType: "speech",
+      labelType: "sound",
       pricePerTask: 1.45,
     },
     {
@@ -65,21 +65,15 @@ const HomeScreen: FC = () => {
       <HomeScreenNavbar />
       <h2 className="card-header">สมัครเป็นคน โคตรว่าง</h2>
       <h2 className="card-header">เพื่อหารายได้ในตอนที่คุณโคตรว่างจริงๆ</h2>
-      <div className="login-registerButton">
+      <div className="registerButton">
           <button
             onClick={() => {
                 //login
             }}
           >
-            เข้าสู่ระบบ            
+            สมัครเลย!            
           </button>
-          <button
-            onClick={() => {
-                //register
-            }}
-          >
-            สมัครสมาชิก
-          </button>
+          
         </div>
         
     </div>

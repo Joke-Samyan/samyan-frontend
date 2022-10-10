@@ -1,12 +1,12 @@
 @import "../../assets/styles/styles.scss";
 
 .landing-container1 {
-    //background-color: rgb(189, 111, 111);
+  //background-color: rgb(189, 111, 111);
 
   .landing-body1 {
     height: calc(100vh - $navbar-height - 20px);
 
-    .login-registerButton {
+    .registerButton {
       display: flex;
       flex-direction: row-reverse;
       height: $navbar-height;
@@ -29,7 +29,7 @@
       padding-top: 20px;
       padding-bottom: 20px;
       gap: 30px 30px;
-      // background-color: orangered;
+      //background-color: orangered;
       overflow-y: scroll;
     }
 

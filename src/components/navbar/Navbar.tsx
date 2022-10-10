@@ -11,6 +11,19 @@ const Navbar: FC = () => {
       navigate("/create-dataset");
     }
   }
+
+  function navigateToLanding() {
+    if (location.pathname !== "/landing") {
+      navigate("/landing");
+    }
+  }
+
+  function navigateToLabel() {
+    if (location.pathname !== "/label-image") {
+      navigate("/label-image");
+    }
+  }
+
   return (
     <div className="navbar-container">
       <h2>KODWANG </h2>
@@ -22,7 +35,11 @@ const Navbar: FC = () => {
       <div className="right-content">
         <div className="btn-container">
           <p>{5} บาท</p>
-          <button>ถอนเงิน</button>
+          <button
+          onClick={navigateToLanding}
+          >
+            หน้าแรก
+          </button>
         </div>
         <button
           className="create-dataset-btn"
@@ -31,10 +48,10 @@ const Navbar: FC = () => {
           สร้างชุดข้อมูล
         </button>
         <button
-          className="create-dataset-btn-icon"
-          onClick={navigateToCreateDataset}
+          className="create-dataset-btn"
+          onClick={navigateToLabel}
         >
-          +
+          label data
         </button>
       </div>
     </div>

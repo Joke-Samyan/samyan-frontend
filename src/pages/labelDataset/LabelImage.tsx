@@ -1,4 +1,5 @@
 import { Image } from "@mui/icons-material";
+import { padding } from "@mui/system";
 import React from "react";
 import Navbar from "../../components/navbar/Navbar";
 import "./labelImage.scss";
@@ -20,6 +21,22 @@ const LabelImage = () => {
           />
         </div>
         <div className="label-image-body-answer">answer</div>
+        <label htmlFor="dataset-name-input"></label>
+          <input
+              //input answer here
+          />
+        <button className="correct-answer"
+        >
+          ตอบ
+        </button>
+        <button className="correct-answer"
+        >
+          ใช่
+        </button>
+        <button className="correct-answer"
+        >
+          ไม่ใช่
+        </button>
       </div>
     </div>
   );
