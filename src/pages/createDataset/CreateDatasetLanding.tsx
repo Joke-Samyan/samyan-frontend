@@ -13,24 +13,24 @@ import { Divider } from "@mui/material";
 const CreateDatasetLanding = () => {
   // const [files, setFiles] = useState([]);
 
-  const [newDataset, setNewDataset] = useState<INewDataset>({
-    datasetName: "",
-    question: "",
-    labelType: "image",
-    pricePerTask: 0.5,
-    answerType: "multiple choice",
-  });
+  // const [newDataset, setNewDataset] = useState<INewDataset>({
+  //   datasetName: "",
+  //   question: "",
+  //   labelType: "image",
+  //   pricePerTask: 0.5,
+  //   answerType: "multiple choice",
+  // });
 
-  const { datasetName, question, labelType, pricePerTask, answerType } =
-    newDataset;
+  // const { datasetName, question, labelType, pricePerTask, answerType } =
+  //   newDataset;
 
   function onNewDatasetChange(
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ): void {
-    setNewDataset({
-      ...newDataset,
-      [event.target.name]: event.target.value,
-    });
+    // setNewDataset({
+    //   ...newDataset,
+    //   [event.target.name]: event.target.value,
+    // });
   }
 
   async function handleFormSubmit(
@@ -38,16 +38,16 @@ const CreateDatasetLanding = () => {
   ): Promise<void> {
     event.preventDefault();
 
-    const requestBody: INewDataset = {
-      datasetName,
-      question,
-      labelType,
-      pricePerTask,
-      answerType,
-    };
-    const request = JSON.stringify(requestBody);
+    // const requestBody: INewDataset = {
+    //   datasetName,
+    //   question,
+    //   labelType,
+    //   pricePerTask,
+    //   answerType,
+    // };
+    // const request = JSON.stringify(requestBody);
 
-    console.log(request);
+    // console.log(request);
   }
 
   return (
@@ -60,7 +60,7 @@ const CreateDatasetLanding = () => {
         >
           <h2 className="card-header">สร้างชุดข้อมูล</h2>
           <label htmlFor="dataset-name-input">ชื่อชุดข้อมูล</label>
-          <input
+          {/* <input
             id="dataset-name-input"
             name="datasetName"
             value={datasetName}
@@ -119,7 +119,7 @@ const CreateDatasetLanding = () => {
             value={pricePerTask}
             type="number"
             onChange={(event) => onNewDatasetChange(event)}
-          />
+          /> */}
 
           <div style={{ width: "100%", padding: "20px 0 20px 0" }}>
             <Divider sx={{ borderBottomWidth: "2px", bgcolor: "#777" }} />

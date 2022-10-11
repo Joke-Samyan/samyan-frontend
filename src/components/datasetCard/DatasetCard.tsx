@@ -1,13 +1,8 @@
 import { forwardRef, ForwardRefRenderFunction, ReactNode } from "react";
-import {
-  Chat,
-  Image,
-  KeyboardVoice,
-  QuestionMark,
-  VolumeUp,
-} from "@mui/icons-material";
+import { Chat, Image, QuestionMark, VolumeUp } from "@mui/icons-material";
 import { IDataset, TLabelType } from "../../interfaces/IDataset";
 import "./datasetCard.scss";
+import { useNavigate } from "react-router-dom";
 
 function getLabelTypeIcon(labelType: TLabelType): ReactNode {
   const iconStyle: object = {
@@ -42,17 +37,25 @@ const DatasetCard: ForwardRefRenderFunction<HTMLDivElement, IDataset> = (
   props: IDataset,
   ref
 ) => {
-  const { question, labelType, pricePerTask }: IDataset = { ...props };
+  const navigate = useNavigate();
+  const { description, reward_dataset, entries }: IDataset = { ...props };
   return (
-    <div ref={ref}>
+    <div
+      ref={ref}
+      onClick={() => {
+        navigate("/label-image", {
+          state: { ...props },
+        });
+      }}
+    >
       <div className="card-container">
-        <div className="header">{question}</div>
-        <div className="type-image">{getLabelTypeIcon(labelType)}</div>
+        <div className="header">{description}</div>
+        <div className="type-image">{getLabelTypeIcon("image")}</div>
         <div className="price-container">
           <div className="price">
-            <div>{pricePerTask} บาท</div>
+            <div>{(reward_dataset / entries.length).toFixed(2)} บาท</div>
             <div>/</div>
-            <div>{getAnswerType(labelType)}</div>
+            <div>{getAnswerType("image")}</div>
           </div>
         </div>
       </div>
