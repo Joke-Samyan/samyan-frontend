@@ -1,13 +1,13 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import Navbar from "../../components/navbar/Navbar";
 // import { useDropzone } from "react-dropzone";
 import "./createDataset.scss";
-import { UploadFile } from "@mui/icons-material";
-import {
-  answerTypeArray,
-  INewDataset,
-  labelTypeArray,
-} from "../../interfaces/IDataset";
+// import { UploadFile } from "@mui/icons-material";
+// import {
+//   answerTypeArray,
+//   INewDataset,
+//   labelTypeArray,
+// } from "../../interfaces/IDataset";
 import { Divider } from "@mui/material";
 
 const CreateDatasetLanding = () => {
@@ -24,14 +24,14 @@ const CreateDatasetLanding = () => {
   // const { datasetName, question, labelType, pricePerTask, answerType } =
   //   newDataset;
 
-  function onNewDatasetChange(
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ): void {
-    // setNewDataset({
-    //   ...newDataset,
-    //   [event.target.name]: event.target.value,
-    // });
-  }
+  // function onNewDatasetChange(
+  //   event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  // ): void {
+  //   // setNewDataset({
+  //   //   ...newDataset,
+  //   //   [event.target.name]: event.target.value,
+  //   // });
+  // }
 
   async function handleFormSubmit(
     event: FormEvent<HTMLFormElement>

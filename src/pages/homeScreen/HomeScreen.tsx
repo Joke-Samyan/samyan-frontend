@@ -1,10 +1,6 @@
-//import { FilterAlt } from "@mui/icons-material";
-import { FC, useState } from "react";
-//import DatasetCard from "../../components/datasetCard/DatasetCard";
+import { FC } from "react";
 import HomeScreenNavbar from "../../components/navbar/HomeScreenNavbar";
-import { IDataset } from "../../interfaces/IDataset";
 import "./homeScreen.scss";
-//import FlipMove from "react-flip-move";
 
 const HomeScreen: FC = () => {
   return (

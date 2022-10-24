@@ -38,14 +38,14 @@ const DatasetCard: ForwardRefRenderFunction<HTMLDivElement, IDataset> = (
   ref
 ) => {
   const navigate = useNavigate();
-  const { description, reward_dataset, entries }: IDataset = { ...props };
+  const { description, reward_dataset, entries, dataset_id }: IDataset = {
+    ...props,
+  };
   return (
     <div
       ref={ref}
       onClick={() => {
-        navigate("/label-image", {
-          state: { ...props },
-        });
+        navigate(`/label-image/${dataset_id}/${description}`);
       }}
     >
       <div className="card-container">

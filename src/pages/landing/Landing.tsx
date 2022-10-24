@@ -1,5 +1,5 @@
 import { FilterAlt } from "@mui/icons-material";
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect } from "react";
 import DatasetCard from "../../components/datasetCard/DatasetCard";
 import Navbar from "../../components/navbar/Navbar";
 import { IDataset } from "../../interfaces/IDataset";

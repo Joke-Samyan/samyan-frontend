@@ -8,10 +8,12 @@ const RootNavigation = () => {
   return (
     <BrowserRouter>
       <Routes>
-
         <Route path="/create-dataset" element={<CreateDatasetLanding />} />
-        
-        <Route path="/label-image" element={<LabelImage />} />
+
+        <Route
+          path="/label-image/:dataset_id/:description"
+          element={<LabelImage />}
+        />
         <Route path="/create-dataset" element={<CreateDatasetLanding />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/" element={<HomeScreen />} />
