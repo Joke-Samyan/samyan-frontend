@@ -21,7 +21,8 @@ export async function apiGatewayHandler(
       data: body,
       headers: {
         "Content-Type": "application/json",
-        token: localStorage.token,
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJ1c2VyX2lkIjoiNjM1ODNhNGE1MjBiN2U0MmQ4NTc4M2IyIiwiZXhwIjoxNjY2NzM2NzY1fQ.HtJolwoipI8LEh5--HpKu2JKL9YFH7pb7XafqWRAbdU",
       },
     });
 
@@ -52,7 +53,7 @@ export async function authapiGatewayHandler(
 export const KodwangAccountApi = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
-      ? process.env.REACT_APP_GRPC
+      ? process.env.REACT_APP_API_ACCOUNT_SERVICE
       : "http://localhost:30033",
   timeout: 8000,
   headers: { "Content-Type": "application/json" },

@@ -49,7 +49,7 @@ const LabelImage = () => {
         const request: ILabelEntrySchema = {
           dataset_id: dataset_id,
           entry_id: entry.entry_id || "none",
-          labeler_id: "634eaa9d85398e1732e742e4",
+          labeler_id: "63583a4a520b7e42d85783b2",
           label: label,
         };
         const requestBody: string = JSON.stringify(request);
@@ -89,7 +89,7 @@ const LabelImage = () => {
               <button className="correct-answer">ตอบ</button>
             </Fragment>
           )}
-          {entry.data_type === "multipleChoice" && (
+          {entry.data_type === "image" && (
             <Fragment>
               <div className="multiple-choice-container">
                 <button

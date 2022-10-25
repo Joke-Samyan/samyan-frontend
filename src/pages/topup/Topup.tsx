@@ -1,17 +1,14 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import "./topup.scss";
 
 import { TextField } from "@mui/material";
+import { UserInfoContext } from "../../contexts/UserInfoContext";
+import { topup, withdraw } from "../../apis/account";
 
 const TopupLanding = () => {
+  const { userInfoContext, setUserInfoContext } = useContext(UserInfoContext);
   const [amount, setAmount] = useState<number>(0);
-
-  async function handleFormSubmit(
-    event: FormEvent<HTMLFormElement>
-  ): Promise<void> {
-    event.preventDefault();
-  }
 
   function handleChangeAmount(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -19,19 +16,59 @@ const TopupLanding = () => {
     setAmount(parseFloat(event.target.value));
   }
 
+  async function handleTopup() {
+    try {
+      const request = {
+        user_id: userInfoContext.user_id,
+        amount: amount,
+      };
+
+      const requestBody = JSON.stringify(request);
+      await topup(requestBody).then((response) => {
+        if (response.status === "success") {
+          setUserInfoContext({
+            ...userInfoContext,
+            balance: response.data.balance,
+          });
+        }
+      });
+    } catch (exception) {
+      console.error(exception);
+    }
+  }
+
+  async function handleWithdraw() {
+    try {
+      const request = {
+        user_id: userInfoContext.user_id,
+        amount: amount,
+      };
+
+      const requestBody = JSON.stringify(request);
+      await withdraw(requestBody).then((response) => {
+        if (response.status === "success") {
+          setUserInfoContext({
+            ...userInfoContext,
+            balance: response.data.balance,
+          });
+        }
+      });
+    } catch (exception) {
+      console.error(exception);
+    }
+  }
+
   return (
     <div className="login-container">
       <Navbar />
       <div className="login-body">
-        <form className="login-card-container" onSubmit={handleFormSubmit}>
+        <div className="login-card-container">
           <h2 className="card-header">กระเป๋าตังของคุณ</h2>
-          <h2 className="card-header">5 บาท</h2>
+          <h2 className="card-header">{userInfoContext.balance} บาท</h2>
           <div style={{ padding: "10px" }}>
             <TextField
               style={{ width: "30%" }}
               type="number"
-              className="login-input"
-              id="outlined-basic"
               label="จำนวนเงิน"
               variant="outlined"
               size="small"
@@ -41,14 +78,24 @@ const TopupLanding = () => {
           </div>
 
           <div className="topup-btn-container">
-            <button style={{ width: "10%", marginRight: "50px" }} type="submit">
+            <button
+              style={{ width: "10%", marginRight: "50px" }}
+              onClick={() => {
+                handleWithdraw();
+              }}
+            >
               ถอนเงิน
             </button>
-            <button style={{ width: "10%", marginLeft: "50px" }} type="submit">
+            <button
+              style={{ width: "10%", marginLeft: "50px" }}
+              onClick={() => {
+                handleTopup();
+              }}
+            >
               ฝากเงิน
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

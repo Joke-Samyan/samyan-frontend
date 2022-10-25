@@ -21,7 +21,7 @@ const CreateDatasetLanding = () => {
   const [newDataset, setNewDataset] = useState<IDataset>({
     description: "",
     reward_dataset: 0,
-    owner: "634eaa9d85398e1732e742e4",
+    prelabel: "IC",
     entries: [],
   });
 
@@ -59,7 +59,7 @@ const CreateDatasetLanding = () => {
 
         const oldEntries: IEntry[] = newDataset.entries;
         oldEntries[entryIndex].entry = res.location;
-        oldEntries[entryIndex].entry_type = "multipliChoice";
+        oldEntries[entryIndex].entry_type = "image";
         setNewDataset({ ...newDataset, entries: oldEntries });
       } catch (exception) {
         console.log(exception);
@@ -83,13 +83,6 @@ const CreateDatasetLanding = () => {
     } catch (error: any) {
       console.error(error.message);
     }
-
-    // const submission: IDataset = {
-    //   description: description,
-    //   owner: owner,
-    //   reward_dataset: parseFloat(reward_dataset),
-    //   entries: entries
-    // }
   }
 
   return (
@@ -112,6 +105,20 @@ const CreateDatasetLanding = () => {
               value={description}
               name={"description"}
               onChange={(event) => onNewDatasetChange(event)}
+            />
+          </div>
+          <div style={{ padding: "10px" }}>
+            <TextField
+              // style={{ width: "30%" }}
+              className="login-input"
+              id="outlined-basic"
+              label="prelabel"
+              variant="outlined"
+              size="small"
+              value={"IC"}
+              disabled
+              // name={"description"}
+              // onChange={(event) => onNewDatasetChange(event)}
             />
           </div>
           <div

@@ -2,11 +2,13 @@ export const labelTypeArray = ["image", "sound", "word"] as const;
 
 export const answerTypeArray = ["text", "multipleChoice"];
 
+export const prelabelTypeArray = ["IC", "OCR"];
+
 export interface IDataset {
   dataset_id?: string;
   description: string;
   reward_dataset: number;
-  owner?: string;
+  prelabel: TPrelabelType;
   entries: IEntry[];
 }
 
@@ -34,3 +36,5 @@ export interface ILabelEntrySchema {
 export type TLabelType = typeof labelTypeArray[number];
 
 export type TAnswerType = typeof answerTypeArray[number];
+
+export type TPrelabelType = typeof prelabelTypeArray[number];

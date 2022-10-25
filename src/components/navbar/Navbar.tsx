@@ -1,10 +1,13 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { UserInfoContext } from "../../contexts/UserInfoContext";
 import "./navbar.scss";
 
 const Navbar: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { userInfoContext } = useContext(UserInfoContext);
 
   function navigateToLanding() {
     if (location.pathname !== "/") {
@@ -18,11 +21,11 @@ const Navbar: FC = () => {
     }
   }
 
-  function navigateToLabel() {
-    if (location.pathname !== "/label-image") {
-      navigate("/label-image");
-    }
-  }
+  // function navigateToLabel() {
+  //   if (location.pathname !== "/label-image") {
+  //     navigate("/label-image");
+  //   }
+  // }
 
   return (
     <div className="navbar-container">
@@ -34,13 +37,10 @@ const Navbar: FC = () => {
       />
       <div className="right-content">
         <div className="btn-container">
-          <p>{5} บาท</p>
+          <p>{userInfoContext.balance} บาท</p>
           <button onClick={navigateToTopup}>กระเป๋าตัง</button>
         </div>
-        <button
-          className="create-dataset-btn"
-          onClick={navigateToLanding}
-        >
+        <button className="create-dataset-btn" onClick={navigateToLanding}>
           หน้าแรก
         </button>
       </div>

@@ -3,7 +3,7 @@ import RootNavigation from "./routes/RootNavigation";
 import "./App.css";
 import "./assets/styles/styles.scss";
 import { DatasetContextProvider } from "./contexts/DatasetContext";
-import { UserInfoContextProvider } from "./contexts/UserContext";
+import { UserInfoContextProvider } from "./contexts/UserInfoContext";
 
 function App() {
   return (

@@ -11,7 +11,7 @@ interface Props {
 }
 interface IUserInfoContext {
   userInfoContext: IUserInfo;
-  setUserContext: Dispatch<SetStateAction<IUserInfo>>;
+  setUserInfoContext: Dispatch<SetStateAction<IUserInfo>>;
 }
 
 const UserInfoContextState = {
@@ -24,14 +24,14 @@ const UserInfoContextState = {
     phone: "",
     balance: 0,
   },
-  setUserContext: () => {},
+  setUserInfoContext: () => {},
 };
 
 export const UserInfoContext =
   createContext<IUserInfoContext>(UserInfoContextState);
 
 export const UserInfoContextProvider = ({ children }: Props) => {
-  const [userInfoContext, setUserContext] = useState<IUserInfo>({
+  const [userInfoContext, setUserInfoContext] = useState<IUserInfo>({
     user_id: "634eaa9d85398e1732e742e4",
     email: "",
     password: "",
@@ -45,7 +45,7 @@ export const UserInfoContextProvider = ({ children }: Props) => {
     <UserInfoContext.Provider
       value={{
         userInfoContext,
-        setUserContext,
+        setUserInfoContext,
       }}
     >
       {children}
