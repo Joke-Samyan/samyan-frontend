@@ -12,9 +12,9 @@ const Navbar: FC = () => {
     }
   }
 
-  function navigateToLanding() {
-    if (location.pathname !== "/landing") {
-      navigate("/landing");
+  function navigateToTopup() {
+    if (location.pathname !== "/topup") {
+      navigate("/topup");
     }
   }
 
@@ -35,11 +35,7 @@ const Navbar: FC = () => {
       <div className="right-content">
         <div className="btn-container">
           <p>{5} บาท</p>
-          <button
-          onClick={navigateToLanding}
-          >
-            หน้าแรก
-          </button>
+          <button onClick={navigateToTopup}>เป๋าตัง</button>
         </div>
         <button
           className="create-dataset-btn"
@@ -47,10 +43,7 @@ const Navbar: FC = () => {
         >
           สร้างชุดข้อมูล
         </button>
-        <button
-          className="create-dataset-btn"
-          onClick={navigateToLabel}
-        >
+        <button className="create-dataset-btn" onClick={navigateToLabel}>
           label data
         </button>
       </div>

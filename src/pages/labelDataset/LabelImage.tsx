@@ -48,7 +48,7 @@ const LabelImage = () => {
       if (dataset_id) {
         const request: ILabelEntrySchema = {
           dataset_id: dataset_id,
-          entry_id: entry.entry_id,
+          entry_id: entry.entry_id || "none",
           labeler_id: "634eaa9d85398e1732e742e4",
           label: label,
         };

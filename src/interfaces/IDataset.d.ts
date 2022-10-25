@@ -3,7 +3,7 @@ export const labelTypeArray = ["image", "sound", "word"] as const;
 export const answerTypeArray = ["text", "multipleChoice"];
 
 export interface IDataset {
-  dataset_id: string;
+  dataset_id?: string;
   description: string;
   reward_dataset: number;
   owner?: string;
@@ -13,14 +13,14 @@ export interface IDataset {
 export interface IEntry {
   entry_type: TAnswerType;
   entry: string;
-  reward: number;
-  entry_id: string;
+  reward?: number;
+  entry_id?: string;
 }
 
-export interface INewDataset extends IDataset {
-  datasetName: string;
-  answerType: TAnswerType;
-}
+// export interface INewDataset extends IDataset {
+//   datasetName: string;
+//   answerType: TAnswerType;
+// }
 
 export interface ILabelEntrySchema {
   dataset_id: string;

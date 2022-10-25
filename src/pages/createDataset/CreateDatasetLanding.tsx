@@ -1,53 +1,95 @@
-import { FormEvent } from "react";
+import { ChangeEvent, FormEvent, Fragment, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
+import ReactS3Client from "react-aws-s3-typescript";
+
 // import { useDropzone } from "react-dropzone";
 import "./createDataset.scss";
-// import { UploadFile } from "@mui/icons-material";
-// import {
-//   answerTypeArray,
-//   INewDataset,
-//   labelTypeArray,
-// } from "../../interfaces/IDataset";
-import { Divider } from "@mui/material";
+import { AddCircle } from "@mui/icons-material";
+import { IDataset, IEntry } from "../../interfaces/IDataset";
+import { Divider, TextField } from "@mui/material";
+import { createDataset } from "../../apis/dataset";
+
+const s3Config = {
+  bucketName: process.env.REACT_APP_BUCKET_NAME || "test",
+  dirName: "images",
+  region: process.env.REACT_APP_REGION || "test",
+  accessKeyId: process.env.REACT_APP_ACCESS || "test",
+  secretAccessKey: process.env.REACT_APP_SECRET || "test",
+};
 
 const CreateDatasetLanding = () => {
-  // const [files, setFiles] = useState([]);
+  const [newDataset, setNewDataset] = useState<IDataset>({
+    description: "",
+    reward_dataset: 0,
+    owner: "634eaa9d85398e1732e742e4",
+    entries: [],
+  });
 
-  // const [newDataset, setNewDataset] = useState<INewDataset>({
-  //   datasetName: "",
-  //   question: "",
-  //   labelType: "image",
-  //   pricePerTask: 0.5,
-  //   answerType: "multiple choice",
-  // });
+  const { description, reward_dataset, entries } = newDataset;
 
-  // const { datasetName, question, labelType, pricePerTask, answerType } =
-  //   newDataset;
+  function onNewDatasetChange(
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void {
+    setNewDataset({
+      ...newDataset,
+      [event.target.name]:
+        event.target.name === "reward_dataset"
+          ? parseFloat(event.target.value)
+          : event.target.value,
+    });
+  }
 
-  // function onNewDatasetChange(
-  //   event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  // ): void {
-  //   // setNewDataset({
-  //   //   ...newDataset,
-  //   //   [event.target.name]: event.target.value,
-  //   // });
-  // }
+  function handleAddEntry() {
+    setNewDataset({
+      ...newDataset,
+      entries: [...entries, { entry: "", entry_type: "multipleChoice" }],
+    });
+  }
+
+  async function handleUploadEntry(
+    event: ChangeEvent<HTMLInputElement>,
+    entryIndex: number
+  ) {
+    const s3 = new ReactS3Client(s3Config);
+    const files = event.currentTarget.files;
+
+    if (files) {
+      try {
+        const res = await s3.uploadFile(files[0], files[0].name);
+
+        const oldEntries: IEntry[] = newDataset.entries;
+        oldEntries[entryIndex].entry = res.location;
+        oldEntries[entryIndex].entry_type = "multipliChoice";
+        setNewDataset({ ...newDataset, entries: oldEntries });
+      } catch (exception) {
+        console.log(exception);
+      }
+    } else {
+      console.log("file cannot be null");
+    }
+  }
 
   async function handleFormSubmit(
     event: FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
 
-    // const requestBody: INewDataset = {
-    //   datasetName,
-    //   question,
-    //   labelType,
-    //   pricePerTask,
-    //   answerType,
-    // };
-    // const request = JSON.stringify(requestBody);
+    try {
+      const requestBody = JSON.stringify(newDataset);
 
-    // console.log(request);
+      await createDataset(requestBody).then((response) => {
+        console.log(response);
+      });
+    } catch (error: any) {
+      console.error(error.message);
+    }
+
+    // const submission: IDataset = {
+    //   description: description,
+    //   owner: owner,
+    //   reward_dataset: parseFloat(reward_dataset),
+    //   entries: entries
+    // }
   }
 
   return (
@@ -59,67 +101,58 @@ const CreateDatasetLanding = () => {
           onSubmit={handleFormSubmit}
         >
           <h2 className="card-header">สร้างชุดข้อมูล</h2>
-          <label htmlFor="dataset-name-input">ชื่อชุดข้อมูล</label>
-          {/* <input
-            id="dataset-name-input"
-            name="datasetName"
-            value={datasetName}
-            onChange={(event) => onNewDatasetChange(event)}
-          />
-
-          <label htmlFor="question-input">คำถาม</label>
-          <input
-            id="question-input"
-            name="question"
-            value={question}
-            onChange={(event) => onNewDatasetChange(event)}
-          />
-
-          <div className="drag-over-container">
-            <UploadFile sx={{ fontSize: "60px" }} />
-            <p>Upload Data By Drag And Drop</p>
+          <div style={{ padding: "10px" }}>
+            <TextField
+              // style={{ width: "30%" }}
+              className="login-input"
+              id="outlined-basic"
+              label="ชื่อชุดข้อมูล"
+              variant="outlined"
+              size="small"
+              value={description}
+              name={"description"}
+              onChange={(event) => onNewDatasetChange(event)}
+            />
           </div>
-
-          <label htmlFor="label-type-select">Label Type</label>
-          <select
-            id="label-type-select"
-            name="labelType"
-            value={labelType}
-            onChange={(event) => {
-              onNewDatasetChange(event);
-            }}
+          <div
+            style={{ display: "flex", alignItems: "center" }}
+            onClick={handleAddEntry}
           >
-            {labelTypeArray.map((labelType, labelTypeIndex) => (
-              <option key={labelTypeIndex} value={labelType}>
-                {labelType}
-              </option>
-            ))}
-          </select>
-
-          <label htmlFor="answer-type-select">Label Type</label>
-          <select
-            id="answer-type-select"
-            name="answerType"
-            value={answerType}
-            onChange={(event) => {
-              onNewDatasetChange(event);
-            }}
-          >
-            {answerTypeArray.map((answerType, answerTypeIndex) => (
-              <option key={answerTypeIndex} value={answerType}>
-                {answerType}
-              </option>
-            ))}
-          </select>
-
-          <label htmlFor="price-per-task-input">ราคาต่อ 1 ข้อมูล</label>
-          <input
-            id="price-per-task-input"
-            name="pricePerTask"
-            value={pricePerTask}
-            type="number"
-            onChange={(event) => onNewDatasetChange(event)}
-          /> */}
+            <AddCircle />
+            เพิ่ม Data Entry
+          </div>
+          {newDataset.entries.map((entry: IEntry, entryIndex) => (
+            <Fragment key={entryIndex}>
+              {entry.entry && (
+                <Fragment>
+                  <img src={entry.entry} alt={"entry link not found"} />
+                  <p>{entry.entry}</p>
+                </Fragment>
+              )}
+              {!entry.entry && (
+                <input
+                  type="file"
+                  onChange={(event) => {
+                    handleUploadEntry(event, entryIndex);
+                  }}
+                />
+              )}
+            </Fragment>
+          ))}
+          <div style={{ padding: "10px" }}>
+            <TextField
+              // style={{ width: "30%" }}
+              type="number"
+              className="login-input"
+              id="outlined-basic"
+              label="ค่าตอบแทน"
+              variant="outlined"
+              size="small"
+              value={reward_dataset}
+              name={"reward_dataset"}
+              onChange={(event) => onNewDatasetChange(event)}
+            />
+          </div>
 
           <div style={{ width: "100%", padding: "20px 0 20px 0" }}>
             <Divider sx={{ borderBottomWidth: "2px", bgcolor: "#777" }} />
