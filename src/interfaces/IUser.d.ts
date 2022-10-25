@@ -11,5 +11,6 @@ export interface IRegister extends ILogin {
 }
 
 export interface IUserInfo extends IRegister {
+  user_id: string;
   balance: number;
 }

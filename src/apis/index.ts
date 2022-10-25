@@ -9,7 +9,7 @@ export const KodwangApi = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-export async function apiHandler(
+export async function apiGatewayHandler(
   method: string,
   url: string,
   body?: string
@@ -31,7 +31,7 @@ export async function apiHandler(
   }
 }
 
-export async function authApiHandler(
+export async function authapiGatewayHandler(
   method: string,
   url: string,
   body?: string
@@ -49,7 +49,7 @@ export async function authApiHandler(
   }
 }
 
-export const KodwangGrpc = axios.create({
+export const KodwangAccountApi = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
       ? process.env.REACT_APP_GRPC
@@ -58,13 +58,13 @@ export const KodwangGrpc = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-export async function grpcHandler(
+export async function apiAccountHandler(
   method: string,
   url: string,
   body?: string
 ): Promise<any> {
   try {
-    const response = await KodwangGrpc({
+    const response = await KodwangAccountApi({
       method,
       url,
       data: body,

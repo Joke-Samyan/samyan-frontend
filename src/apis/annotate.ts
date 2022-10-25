@@ -1,5 +1,5 @@
-import { apiHandler } from ".";
+import { apiGatewayHandler } from ".";
 
 export async function labelData(body: string): Promise<any> {
-  return apiHandler("put", "/annotate", body);
+  return apiGatewayHandler("put", "/annotate", body);
 }

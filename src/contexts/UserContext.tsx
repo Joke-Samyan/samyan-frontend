@@ -16,6 +16,7 @@ interface IUserInfoContext {
 
 const UserInfoContextState = {
   userInfoContext: {
+    user_id: "634eaa9d85398e1732e742e4",
     email: "",
     password: "",
     name: "",
@@ -31,12 +32,13 @@ export const UserInfoContext =
 
 export const UserInfoContextProvider = ({ children }: Props) => {
   const [userInfoContext, setUserContext] = useState<IUserInfo>({
+    user_id: "634eaa9d85398e1732e742e4",
     email: "",
     password: "",
     name: "",
     surname: "",
     phone: "",
-    balance: 0,
+    balance: 555,
   });
 
   return (
