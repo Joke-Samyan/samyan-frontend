@@ -2,13 +2,13 @@ import { FC } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./navbar.scss";
 
-const Navbar: FC = () => {
+const LandingNavbar: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  function navigateToLanding() {
-    if (location.pathname !== "/") {
-      navigate("/");
+  function navigateToCreateDataset() {
+    if (location.pathname !== "/create-dataset") {
+      navigate("/create-dataset");
     }
   }
 
@@ -39,13 +39,16 @@ const Navbar: FC = () => {
         </div>
         <button
           className="create-dataset-btn"
-          onClick={navigateToLanding}
+          onClick={navigateToCreateDataset}
         >
-          หน้าแรก
+          สร้างชุดข้อมูล
+        </button>
+        <button className="create-dataset-btn" onClick={navigateToLabel}>
+          label data
         </button>
       </div>
     </div>
   );
 };
 
-export default Navbar;
+export default LandingNavbar;
