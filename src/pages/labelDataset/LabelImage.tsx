@@ -77,10 +77,10 @@ const LabelImage = () => {
             </header>
           </div>
           <div className="label-image-body-content">
-            <img src={entry.entry} alt="dataset not found" />
+            <img src={entry.data} alt="dataset not found" />
           </div>
           {/* <h2 className="label-image-body-answer">answer</h2> */}
-          {entry.entry_type === "text" && (
+          {entry.data_type === "text" && (
             <Fragment>
               <label htmlFor="dataset-name-input"></label>
               <input
@@ -89,7 +89,7 @@ const LabelImage = () => {
               <button className="correct-answer">ตอบ</button>
             </Fragment>
           )}
-          {entry.entry_type === "multipleChoice" && (
+          {entry.data_type === "multipleChoice" && (
             <Fragment>
               <div className="multiple-choice-container">
                 <button

@@ -13,6 +13,8 @@ export interface IDataset {
 export interface IEntry {
   entry_type: TAnswerType;
   entry: string;
+  data?: string;
+  data_type?: TAnswerType;
   reward?: number;
   entry_id?: string;
 }

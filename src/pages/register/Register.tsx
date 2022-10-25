@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import Navbar from "../../components/navbar/Navbar";
+import HomeScreenNavbar from "../../components/navbar/HomeScreenNavbar";
 import "./register.scss";
 
 import { TextField } from "@mui/material";
@@ -34,7 +34,7 @@ const RegisterLanding = () => {
 
   return (
     <div className="login-container">
-      <Navbar />
+      <HomeScreenNavbar />
       <div className="login-body">
         <form className="login-card-container" onSubmit={handleFormSubmit}>
           <h2 className="card-header">สมัครสมาชิก</h2>

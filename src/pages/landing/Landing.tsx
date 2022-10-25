@@ -1,7 +1,7 @@
 import { FilterAlt } from "@mui/icons-material";
 import { FC, useContext, useEffect } from "react";
 import DatasetCard from "../../components/datasetCard/DatasetCard";
-import Navbar from "../../components/navbar/Navbar";
+import LandingNavbar from "../../components/navbar/LandingNavbar";
 import { IDataset } from "../../interfaces/IDataset";
 import "./landing.scss";
 import FlipMove from "react-flip-move";
@@ -35,7 +35,7 @@ const Landing: FC = () => {
 
   return (
     <div className="landing-container">
-      <Navbar />
+      <LandingNavbar />
       <div className="landing-body">
         <div className="filter-container">
           <button

@@ -6,9 +6,9 @@ const HomeScreenNavbar: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  function navigateToCreateDataset() {
-    if (location.pathname !== "/create-dataset") {
-      navigate("/create-dataset");
+  function navigateToLogin() {
+    if (location.pathname !== "/login") {
+      navigate("/login");
     }
   }
   return (
@@ -22,13 +22,13 @@ const HomeScreenNavbar: FC = () => {
       <div className="right-contentt">
         <button
           className="create-dataset-btn"
-          onClick={navigateToCreateDataset}
+          onClick={navigateToLogin}
         >
-          สมัครเป็นคนโคตรว่าง
+          เข้าสู่ระบบ
         </button>
         <button
           className="create-dataset-btn-icon"
-          onClick={navigateToCreateDataset}
+          onClick={navigateToLogin}
         >
           +
         </button>
