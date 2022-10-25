@@ -1,0 +1,56 @@
+@import "../../assets/styles/styles.scss";
+
+.create-dataset-container {
+  .create-dataset-body {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - $navbar-height - 60px); // all - navbar - cardMargin
+    align-items: center;
+
+    .create-dataset-card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 60%;
+      min-width: 350px;
+      max-width: 1200px;
+      padding-left: $navbar-padding;
+      padding-right: $navbar-padding;
+      margin: 30px;
+      background-color: $secondary-color;
+
+      .card-header {
+        width: 100%;
+        text-align: center;
+      }
+
+      label {
+        margin-bottom: 5px;
+      }
+      select,
+      input {
+        width: 50%;
+        margin-bottom: 10px;
+      }
+    }
+
+    .drag-over-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+      width: 80%;
+      margin: 10px 10% 20px 10%;
+      border-radius: 10px;
+      border: 2px dashed $primary-color;
+    }
+
+    .submit-btn-container {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+  }
+}
