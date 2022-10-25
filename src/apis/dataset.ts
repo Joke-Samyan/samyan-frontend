@@ -1,7 +1,7 @@
 import { apiHandler, grpcHandler } from ".";
 
 export async function getAllDataset(): Promise<any> {
-  return apiHandler("get", "/dataset");
+  return apiHandler("get", "/REST/dataset");
 }
 
 export async function getDatasetById(param: string): Promise<any> {
@@ -9,5 +9,5 @@ export async function getDatasetById(param: string): Promise<any> {
 }
 
 export async function createDataset(body: string): Promise<any> {
-  return apiHandler("post", `/dataset/create`, body);
+  return apiHandler("post", `/REST/dataset/create`, body);
 }

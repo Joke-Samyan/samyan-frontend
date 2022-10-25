@@ -17,17 +17,13 @@ const RootNavigation = () => {
           path="/label-image/:dataset_id/:description"
           element={<LabelImage />}
         />
-        <Route
-          path="/label-image/"
-          element={<LabelImage />}
-        />
-        <Route path="/" element={<HomeScreen />} />
+        <Route path="/label-image/" element={<LabelImage />} />
+        <Route path="/landing" element={<HomeScreen />} />
         <Route path="/create-dataset" element={<CreateDatasetLanding />} />
-        <Route path="/landing" element={<Landing />} />
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/topup" element={<Topup/>}/>
-
+        <Route path="/" element={<Landing />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/topup" element={<Topup />} />
       </Routes>
     </BrowserRouter>
   );

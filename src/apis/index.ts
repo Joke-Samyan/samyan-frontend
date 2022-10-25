@@ -3,7 +3,7 @@ import axios from "axios";
 export const KodwangApi = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
-      ? process.env.REACT_APP_API
+      ? process.env.REACT_APP_API_GATEWAY
       : "http://localhost:5000",
   timeout: 8000,
   headers: { "Content-Type": "application/json" },

@@ -19,7 +19,7 @@ const LoginLanding = () => {
 
     console.log(submission);
 
-    navigate("/landing");
+    navigate("/");
   }
 
   function onSubmissionChange(
