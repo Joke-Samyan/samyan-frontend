@@ -12,7 +12,10 @@ const Router = () => {
 
   useEffect(() => {
     handleGetUserInfo().then((response) => {
-      if (response.detail !== "Not authenticated") {
+      if (
+        response.detail !== "Not authenticated" &&
+        localStorage.getItem("token")
+      ) {
         setIsAuthenticated(true);
         handleGetUserBalance(response.user_id).then((balance) => {
           if (balance.status === "success") {

@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import DatasetCard from "../../components/datasetCard/DatasetCard";
 import { IDataset } from "../../interfaces/IDataset";
 import "./landing.scss";
-import FlipMove from "react-flip-move";
+// import FlipMove from "react-flip-move";
 import { DatasetContext } from "../../contexts/DatasetContext";
 import { getAllDataset } from "../../apis/dataset";
 import Navbar from "../../components/navbar/Navbar";
@@ -19,7 +19,7 @@ const Landing = () => {
     handleGetAllDataset().then((response: IDataset[]) => {
       console.log(response);
 
-      if (isSubscribed && response.length >= 0) {
+      if (isSubscribed && Array.isArray(response)) {
         setDatasetContext(response);
       }
     });
@@ -60,11 +60,11 @@ const Landing = () => {
             สร้างชุดข้อมูล
           </button>
         </div>
-        <FlipMove typeName="div" className="dataset-grid-container">
+        <div className="dataset-grid-container">
           {datasetContext?.map((dataset: IDataset) => (
             <DatasetCard key={dataset.dataset_id} {...dataset} />
           ))}
-        </FlipMove>
+        </div>
       </div>
     </div>
   );
