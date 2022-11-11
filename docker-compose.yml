@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  samyan-web-service:
+    restart: on-failure
+    image: image-3000-samyan-web-service
+    container_name: container-3000-samyan-web-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ".:/app"
+      - "/app/node_modules"
+    tty: true
+    ports:
+      - 3000:80
