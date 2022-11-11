@@ -9,6 +9,8 @@ const LandingNavbar: FC = () => {
 
   const { userInfoContext } = useContext(UserInfoContext);
 
+  console.log(userInfoContext);
+
   function navigateToCreateDataset() {
     if (location.pathname !== "/create-dataset") {
       navigate("/create-dataset");

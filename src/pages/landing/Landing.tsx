@@ -1,20 +1,25 @@
 import { FilterAlt } from "@mui/icons-material";
-import { FC, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import DatasetCard from "../../components/datasetCard/DatasetCard";
-import LandingNavbar from "../../components/navbar/LandingNavbar";
 import { IDataset } from "../../interfaces/IDataset";
 import "./landing.scss";
 import FlipMove from "react-flip-move";
 import { DatasetContext } from "../../contexts/DatasetContext";
 import { getAllDataset } from "../../apis/dataset";
+import Navbar from "../../components/navbar/Navbar";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Landing: FC = () => {
+const Landing = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { datasetContext, setDatasetContext } = useContext(DatasetContext);
 
   useEffect(() => {
     let isSubscribed = true;
     handleGetAllDataset().then((response: IDataset[]) => {
-      if (isSubscribed) {
+      console.log(response);
+
+      if (isSubscribed && response.length >= 0) {
         setDatasetContext(response);
       }
     });
@@ -33,18 +38,26 @@ const Landing: FC = () => {
     }
   }
 
+  function navigateToCreateDataset() {
+    if (location.pathname !== "/create-dataset") {
+      navigate("/create-dataset");
+    }
+  }
+
   return (
     <div className="landing-container">
-      <LandingNavbar />
+      <Navbar />
       <div className="landing-body">
         <div className="filter-container">
-          <button
-          // onClick={() => {
-          //   handleSortDataset();
-          // }}
-          >
+          <button className="create-dataset-btn">
             <FilterAlt />
             ตัวกรอง
+          </button>
+          <button
+            className="create-dataset-btn"
+            onClick={navigateToCreateDataset}
+          >
+            สร้างชุดข้อมูล
           </button>
         </div>
         <FlipMove typeName="div" className="dataset-grid-container">

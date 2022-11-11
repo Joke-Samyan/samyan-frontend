@@ -1,16 +1,15 @@
-import React from "react";
-import RootNavigation from "./routes/RootNavigation";
 import "./App.css";
 import "./assets/styles/styles.scss";
 import { DatasetContextProvider } from "./contexts/DatasetContext";
 import { UserInfoContextProvider } from "./contexts/UserInfoContext";
+import Router from "./routes/Router";
 
 function App() {
   return (
     <div className="App">
       <UserInfoContextProvider>
         <DatasetContextProvider>
-          <RootNavigation />
+          <Router />
         </DatasetContextProvider>
       </UserInfoContextProvider>
     </div>

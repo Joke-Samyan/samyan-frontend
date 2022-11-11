@@ -27,11 +27,6 @@
       label {
         margin-bottom: 5px;
       }
-      select,
-      input {
-        width: 50%;
-        margin-bottom: 10px;
-      }
     }
 
     .drag-over-container {
@@ -44,6 +39,27 @@
       margin: 10px 10% 20px 10%;
       border-radius: 10px;
       border: 2px dashed $primary-color;
+    }
+
+    .new-entry {
+      display: flex;
+      align-items: center;
+      margin-left: 40px;
+      // background-color: red;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
+
+      p {
+        width: 300px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .entry-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
     }
 
     .submit-btn-container {

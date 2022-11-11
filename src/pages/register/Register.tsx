@@ -1,10 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import HomeScreenNavbar from "../../components/navbar/HomeScreenNavbar";
 import "./register.scss";
 
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { IRegister } from "../../interfaces/IUser";
+import { register } from "../../apis/auth";
+import Navbar from "../../components/navbar/Navbar";
 
 const RegisterLanding = () => {
   const navigate = useNavigate();
@@ -14,16 +15,24 @@ const RegisterLanding = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    phone: "",
   });
   async function handleFormSubmit(
     event: FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
 
-    console.log(submission);
+    const requestBody: string = JSON.stringify(submission);
+    handleRegister(requestBody).then((response) => {
+      if (response.ok) {
+        navigate("/login");
+      } else {
+        console.error(response);
+      }
+    });
+  }
 
-    navigate("/login");
+  async function handleRegister(requestBody: string): Promise<any> {
+    return await register(requestBody);
   }
 
   function onSubmissionChange(
@@ -34,7 +43,7 @@ const RegisterLanding = () => {
 
   return (
     <div className="login-container">
-      <HomeScreenNavbar />
+      <Navbar />
       <div className="login-body">
         <form className="login-card-container" onSubmit={handleFormSubmit}>
           <h2 className="card-header">สมัครสมาชิก</h2>
@@ -42,7 +51,7 @@ const RegisterLanding = () => {
           <div style={{ padding: "10px" }}>
             <TextField
               style={{ marginRight: "2%", width: "24%" }}
-              id="outlined-basic"
+              id="register-name"
               label="ชื่อ"
               variant="outlined"
               size="small"
@@ -53,7 +62,7 @@ const RegisterLanding = () => {
             />
             <TextField
               style={{ width: "24%" }}
-              id="outlined-basic"
+              id="register-surname"
               label="นามสกุล"
               variant="outlined"
               size="small"
@@ -66,7 +75,7 @@ const RegisterLanding = () => {
           <div style={{ padding: "10px" }}>
             <TextField
               style={{ width: "50%" }}
-              id="outlined-basic"
+              id="register-email"
               label="อีเมล"
               variant="outlined"
               size="small"
@@ -79,11 +88,12 @@ const RegisterLanding = () => {
           <div style={{ padding: "10px" }}>
             <TextField
               style={{ width: "50%" }}
-              id="outlined-basic"
+              id="register-password"
               label="รหัสผ่าน"
               variant="outlined"
               size="small"
               name="password"
+              type="password"
               onChange={(event) => {
                 onSubmissionChange(event);
               }}
@@ -92,24 +102,12 @@ const RegisterLanding = () => {
           <div style={{ padding: "10px" }}>
             <TextField
               style={{ width: "50%" }}
-              id="outlined-basic"
+              id="register-comfirm-password"
               label="ยืนยันรหัสผ่าน"
               variant="outlined"
               size="small"
               name="confirmPassword"
-              onChange={(event) => {
-                onSubmissionChange(event);
-              }}
-            />
-          </div>
-          <div style={{ padding: "10px" }}>
-            <TextField
-              style={{ width: "50%" }}
-              id="outlined-basic"
-              label="เบอร์โทร"
-              variant="outlined"
-              size="small"
-              name="phone"
+              type="password"
               onChange={(event) => {
                 onSubmissionChange(event);
               }}
@@ -117,7 +115,7 @@ const RegisterLanding = () => {
           </div>
 
           <div className="login-btn-container">
-            <button style={{ width: "20%" }} type="submit">
+            <button style={{ width: "30%" }} type="submit">
               สมัครสมาชิก
             </button>
           </div>

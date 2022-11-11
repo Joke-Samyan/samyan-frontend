@@ -1,10 +1,8 @@
 import { ChangeEvent, FormEvent, Fragment, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import ReactS3Client from "react-aws-s3-typescript";
-
-// import { useDropzone } from "react-dropzone";
 import "./createDataset.scss";
-import { AddCircle } from "@mui/icons-material";
+import { AddCircle, Delete } from "@mui/icons-material";
 import { IDataset, IEntry } from "../../interfaces/IDataset";
 import { Divider, TextField } from "@mui/material";
 import { createDataset } from "../../apis/dataset";
@@ -85,6 +83,16 @@ const CreateDatasetLanding = () => {
     }
   }
 
+  function handleRemoveEntry(entryIndex: number) {
+    setNewDataset({
+      ...newDataset,
+      entries: [
+        ...newDataset.entries.slice(0, entryIndex),
+        ...newDataset.entries.slice(entryIndex + 1),
+      ],
+    });
+  }
+
   return (
     <div className="create-dataset-container">
       <Navbar />
@@ -129,11 +137,15 @@ const CreateDatasetLanding = () => {
             เพิ่ม Data Entry
           </div>
           {newDataset.entries.map((entry: IEntry, entryIndex) => (
-            <Fragment key={entryIndex}>
+            <div key={entryIndex} className="new-entry">
               {entry.entry && (
                 <Fragment>
-                  <img src={entry.entry} alt={"entry link not found"} />
-                  <p>{entry.entry}</p>
+                  <img
+                    src={entry.entry}
+                    alt={"entry link"}
+                    className="entry-image"
+                  />
+                  <p>{entry.entry.slice(0, 60)}</p>
                 </Fragment>
               )}
               {!entry.entry && (
@@ -144,7 +156,12 @@ const CreateDatasetLanding = () => {
                   }}
                 />
               )}
-            </Fragment>
+              <Delete
+                onClick={() => {
+                  handleRemoveEntry(entryIndex);
+                }}
+              />
+            </div>
           ))}
           <div style={{ padding: "10px" }}>
             <TextField

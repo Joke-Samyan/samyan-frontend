@@ -1,19 +1,20 @@
-import { FC, useContext } from "react";
+import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 import "./navbar.scss";
 
-const Navbar: FC = () => {
+const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { userInfoContext } = useContext(UserInfoContext);
+  const { userInfoContext, isAuthenticated, setIsAuthenticated } =
+    useContext(UserInfoContext);
 
-  function navigateToLanding() {
-    if (location.pathname !== "/") {
-      navigate("/");
-    }
-  }
+  // function navigateToLanding() {
+  //   if (location.pathname !== "/") {
+  //     navigate("/");
+  //   }
+  // }
 
   function navigateToTopup() {
     if (location.pathname !== "/topup") {
@@ -21,11 +22,11 @@ const Navbar: FC = () => {
     }
   }
 
-  // function navigateToLabel() {
-  //   if (location.pathname !== "/label-image") {
-  //     navigate("/label-image");
-  //   }
-  // }
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    navigate("/login");
+  }
 
   return (
     <div className="navbar-container">
@@ -35,15 +36,25 @@ const Navbar: FC = () => {
         src={require("../../assets/images/kodwang-logo.png")}
         alt="kod wang logo not found"
       />
-      <div className="right-content">
-        <div className="btn-container">
-          <p>{userInfoContext.balance} บาท</p>
-          <button onClick={navigateToTopup}>กระเป๋าตัง</button>
+      {isAuthenticated && (
+        <div className="right-content">
+          <div className="btn-container">
+            <p>{userInfoContext.balance} บาท</p>
+            <button onClick={navigateToTopup}>กระเป๋าตัง</button>
+          </div>
+          <button
+            className="create-dataset-btn"
+            onClick={() => {
+              handleLogout();
+            }}
+          >
+            ออกจากระบบ
+          </button>
         </div>
-        <button className="create-dataset-btn" onClick={navigateToLanding}>
+      )}
+      {/* <button className="create-dataset-btn" onClick={navigateToLanding}>
           หน้าแรก
-        </button>
-      </div>
+        </button> */}
     </div>
   );
 };

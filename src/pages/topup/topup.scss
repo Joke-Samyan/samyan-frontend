@@ -4,7 +4,7 @@
   .topup-body {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - $navbar-height - 60px); // all - navbar - cardMargin
+    // height: calc(100vh - $navbar-height - 60px); // all - navbar - cardMargin
     align-items: center;
 
     .topup-card-container {
@@ -27,23 +27,6 @@
       label {
         margin-bottom: 5px;
       }
-      select,
-      input {
-        width: 50%;
-        margin-bottom: 10px;
-      }
-    }
-
-    .drag-over-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 300px;
-      width: 80%;
-      margin: 10px 10% 20px 10%;
-      border-radius: 10px;
-      border: 2px dashed $primary-color;
     }
 
     .topup-btn-container {

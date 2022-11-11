@@ -7,7 +7,6 @@ export interface IRegister extends ILogin {
   name: string;
   surname: string;
   confirmPassword?: string;
-  phone: string;
 }
 
 export interface IUserInfo extends IRegister {
