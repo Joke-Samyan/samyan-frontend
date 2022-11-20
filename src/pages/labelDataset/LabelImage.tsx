@@ -24,8 +24,6 @@ const LabelImage = () => {
 
   useEffect(() => {
     try {
-      console.log("fecth data");
-
       if (dataset_id) {
         getDatasetById(dataset_id).then((response) => {
           console.log(response);

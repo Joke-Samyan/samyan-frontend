@@ -1,5 +1,5 @@
 import { Suspense, useContext, useEffect } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import { getUserInfo } from "../apis/auth";
 import { getUserBalance } from "../apis/account";
@@ -7,7 +7,7 @@ import UserRouter from "./UserRouter";
 import AuthRouter from "./AuthRouter";
 
 const Router = () => {
-  const { setUserInfoContext, isAuthenticated, setIsAuthenticated } =
+  const { setUserInfoContext, setIsAuthenticated } =
     useContext(UserInfoContext);
 
   useEffect(() => {
@@ -17,12 +17,16 @@ const Router = () => {
         localStorage.getItem("token")
       ) {
         setIsAuthenticated(true);
-        handleGetUserBalance(response.user_id).then((balance) => {
-          if (balance.status === "success") {
-            response.balance = balance.data;
+        handleGetUserBalance(response.user_id)
+          .then((balance) => {
+            if (balance.status === "success") {
+              response.balance = balance.data;
+              setUserInfoContext(response);
+            }
+          })
+          .catch((error) => {
             setUserInfoContext(response);
-          }
-        });
+          });
       }
     });
     // eslint-disable-next-line
@@ -44,11 +48,11 @@ const Router = () => {
             key={route.path}
             path={route.path}
             element={
-              !isAuthenticated ? (
-                <Suspense fallback={null}>{route.element}</Suspense>
-              ) : (
-                <Navigate to="/" />
-              )
+              <Suspense fallback={null}>{route.element}</Suspense>
+              // !isAuthenticated ? (
+              // ) : (
+              //   <Navigate to="/" />
+              // )
             }
           />
         ))}
@@ -57,11 +61,11 @@ const Router = () => {
             key={route.path}
             path={route.path}
             element={
-              isAuthenticated ? (
-                <Suspense fallback={null}>{route.element}</Suspense>
-              ) : (
-                <Navigate to="/login" />
-              )
+              <Suspense fallback={null}>{route.element}</Suspense>
+              // isAuthenticated ? (
+              // ) : (
+              //   <Navigate to="/login" />
+              // )
             }
           />
         ))}

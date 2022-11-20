@@ -1,4 +1,4 @@
-$primary-color: #004BBC; //#FFF2AF; //#D72323
+$primary-color: #004bbc; //#FFF2AF; //#D72323
 $secondary-color: #ffffff; //#FFC979; //#F5EDED
 
 $navbar-height: 60px;
@@ -15,14 +15,14 @@ $card-width: 200px;
 $card-height: 150px;
 
 button {
-  height: $button-height;
+  // height: $button-height;
   border-radius: 5px;
   border-width: 0;
   font-size: 18px;
   color: rgb(255, 255, 255);
   background-color: $primary-color;
   transition: transform 200ms ease;
-  box-shadow: $default-shadow;
+  // box-shadow: $default-shadow;
   transform: scale(1);
   cursor: pointer;
 }

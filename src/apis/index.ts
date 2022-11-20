@@ -53,7 +53,7 @@ export const KodwangAccountApi = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
       ? process.env.REACT_APP_API_ACCOUNT_SERVICE
-      : process.env.REACT_APP_API_ACCOUNT_SERVICE,
+      : ``,
   timeout: 8000,
   headers: { "Content-Type": "application/json" },
 });

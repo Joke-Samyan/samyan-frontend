@@ -19,6 +19,8 @@ export interface IEntry {
   data_type?: TAnswerType;
   reward?: number;
   entry_id?: string;
+  labeler_id?: string;
+  label?: string;
 }
 
 // export interface INewDataset extends IDataset {
