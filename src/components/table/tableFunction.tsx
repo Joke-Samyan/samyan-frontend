@@ -1,4 +1,4 @@
-import { IDataset } from "../../interfaces/IDataset";
+import { IDataset, IEntry } from "../../interfaces/IDataset";
 import { Order } from "../../interfaces/table.interface";
 
 export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -24,7 +24,7 @@ export function getComparator<Key extends keyof any>(
 }
 
 export function stableSort<T>(
-  array: readonly IDataset[],
+  array: readonly IDataset[] | readonly IEntry[],
   comparator: (a: T, b: T) => number
 ) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);

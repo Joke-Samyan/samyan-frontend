@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import TablePagination from "@mui/material/TablePagination";
-import Tooltip from "@mui/material/Tooltip";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
-import EditIcon from "@mui/icons-material/Edit";
 import { StyledTableCell, StyledTableRow } from "../TableStyle";
 import { getComparator, stableSort } from "../tableFunction";
 import { Order } from "../../../interfaces/table.interface";
-import { IDataset, IEntry } from "../../../interfaces/IDataset";
-import DashboardTableToolbar from "./DashboardTableToolbar";
-import DashboardTableHead from "./DashboardTableHead";
-import { datasetData } from "../../../data/datasetData";
-import { useNavigate } from "react-router-dom";
-import ExportCSVButton from "../../button/ExportCSVButton";
+import { IEntry } from "../../../interfaces/IDataset";
+import DatasetTableToolbar from "./DatasetTableToolbar";
+import DatasetTableHead from "./DatasetTableHead";
+import { useLocation } from "react-router-dom";
 
-export default function DashboardTable() {
-  const navigate = useNavigate();
-  const [dataset] = useState<IDataset[]>(datasetData);
+export default function DatasetTable() {
+  const location = useLocation();
+  const [entries, setEntries] = useState<IEntry[]>([]);
   const [order, setOrder] = useState<Order>("asc");
-  const [orderBy, setOrderBy] = useState<string>("description");
+  const [orderBy, setOrderBy] = useState<string>("entry");
   const [selected, setSelected] = useState<readonly string[]>([]);
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [searchInput, setSearchInput] = useState<string>("");
-  const [selectedDataset, setSelectedDataset] = useState<IDataset | null>(null);
 
   useEffect(() => {
+    if (location.state.entries) {
+      setEntries(location.state.entries);
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -48,7 +45,7 @@ export default function DashboardTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = dataset.map((n) => n.description);
+      const newSelected = entries.map((n) => n.entry);
       setSelected(newSelected);
       return;
     }
@@ -88,13 +85,9 @@ export default function DashboardTable() {
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
-  // Avoid a layout jump when reaching the last page with empty dataset.
+  // Avoid a layout jump when reaching the last page with empty entries.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dataset.length) : 0;
-
-  function countLabeledEntry(entries: IEntry[]): number {
-    return entries.filter((_entry) => _entry.label).length;
-  }
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - entries.length) : 0;
 
   return (
     <Box
@@ -103,9 +96,10 @@ export default function DashboardTable() {
       }}
     >
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <DashboardTableToolbar
+        <DatasetTableToolbar
           numSelected={selected.length}
           setSearchInput={setSearchInput}
+          description={location.state.description}
         />
         <TableContainer>
           <Table
@@ -114,21 +108,21 @@ export default function DashboardTable() {
             // size={dense ? "small" : "medium"}
             size={"small"}
           >
-            <DashboardTableHead
+            <DatasetTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={dataset.length}
+              rowCount={entries.length}
             />
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.sort(getComparator(order, orderBy)).slice() */}
-              {stableSort(dataset, getComparator(order, orderBy))
+              {stableSort(entries, getComparator(order, orderBy))
                 .filter((arr) => {
                   return (
-                    arr.description
+                    arr.entry
                       .toString()
                       .toLowerCase()
                       .indexOf(searchInput.toLowerCase()) >= 0
@@ -136,7 +130,7 @@ export default function DashboardTable() {
                 })
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.description.toString());
+                  const isItemSelected = isSelected(row.entry.toString());
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -145,7 +139,7 @@ export default function DashboardTable() {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.description.toString()}
+                      key={row.entry.toString()}
                       selected={isItemSelected}
                     >
                       <StyledTableCell padding="checkbox">
@@ -161,7 +155,7 @@ export default function DashboardTable() {
                             },
                           }}
                           onClick={(event) =>
-                            handleClick(event, row.description.toString())
+                            handleClick(event, row.entry.toString())
                           }
                         />
                       </StyledTableCell>
@@ -171,37 +165,18 @@ export default function DashboardTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.description.toString()}
+                        {row.entry.toString()}
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        {row.prelabel}
+                        {row.entry_type}
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         <Stack direction={"row"} justifyContent={"flex-end"}>
-                          {countLabeledEntry(row.entries)}/{row.entries.length}
+                          {row.reward}
                         </Stack>
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        <ExportCSVButton
-                          selectedDataset={selectedDataset}
-                          onClick={() => {
-                            setSelectedDataset(row as IDataset);
-                          }}
-                        />
-                        <Tooltip title="View Entries">
-                          <IconButton
-                            onClick={() => {
-                              navigate(`/dashboard/${row.dataset_id}`, {
-                                state: {
-                                  description: row.description,
-                                  entries: row.entries,
-                                },
-                              });
-                            }}
-                          >
-                            <EditIcon sx={{ color: "#004bbc" }} />
-                          </IconButton>
-                        </Tooltip>
+                        {row.label ? row.label : ""}
                       </StyledTableCell>
                     </StyledTableRow>
                   );
@@ -221,7 +196,7 @@ export default function DashboardTable() {
         <TablePagination
           rowsPerPageOptions={[5, 20, 30]}
           component="div"
-          count={dataset.length}
+          count={entries.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

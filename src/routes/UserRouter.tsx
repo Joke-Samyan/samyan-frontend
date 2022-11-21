@@ -8,6 +8,9 @@ const LazyLabelImage = lazy(() => import("../pages/labelDataset/LabelImage"));
 const LabelText = lazy(() => import("../pages/labelDataset/LabelText"));
 const LazyTopUp = lazy(() => import("../pages/topup/Topup"));
 const LazyDashboard = lazy(() => import("../pages/dashboard/Dashboard"));
+const LazyDatasetSummary = lazy(
+  () => import("../pages/dashboard/DatasetSummary")
+);
 
 const UserRouter = [
   {
@@ -33,6 +36,10 @@ const UserRouter = [
   {
     path: "/dashboard",
     element: <LazyDashboard />,
+  },
+  {
+    path: "/dashboard/:dataset_id",
+    element: <LazyDatasetSummary />,
   },
 ];
 

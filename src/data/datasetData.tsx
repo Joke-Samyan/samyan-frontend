@@ -9,13 +9,13 @@ export const datasetData: IDataset[] = [
     entries: [
       {
         entry_type: "multipleChoice",
-        entry: "entry",
+        entry: "entry1",
         reward: 30,
         entry_id: "test123",
       },
       {
         entry_type: "multipleChoice",
-        entry: "entry",
+        entry: "entry2",
         reward: 30,
         entry_id: "test123",
         label: "ใช่",
@@ -68,7 +68,7 @@ export const datasetData: IDataset[] = [
     ],
   },
   {
-    dataset_id: "ๅ/-",
+    dataset_id: "test",
     description: "ใช่สิงโตหรือไม่sinv",
     reward_dataset: 60,
     prelabel: "IC",
