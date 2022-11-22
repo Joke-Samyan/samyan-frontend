@@ -169,7 +169,7 @@ const CreateDatasetLanding = () => {
               type="number"
               className="login-input"
               id="outlined-basic"
-              label="ค่าตอบแทน"
+              label="ราคาค่าตอบแทนรวม"
               variant="outlined"
               size="small"
               value={reward_dataset}

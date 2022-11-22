@@ -79,7 +79,7 @@ const TopupLanding = () => {
 
           <div className="topup-btn-container">
             <button
-              style={{ width: "10%", marginRight: "50px" }}
+              style={{ width: "10%", marginRight: "50px", marginTop: "20px" }}
               onClick={() => {
                 handleWithdraw();
               }}
