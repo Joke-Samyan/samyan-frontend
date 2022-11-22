@@ -1,5 +1,5 @@
 import { Suspense, useContext, useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import { getUserInfo } from "../apis/auth";
 import { getUserBalance } from "../apis/account";
@@ -7,12 +7,13 @@ import UserRouter from "./UserRouter";
 import AuthRouter from "./AuthRouter";
 
 const Router = () => {
-  const { setUserInfoContext, setIsAuthenticated } =
+  const { setUserInfoContext, isAuthenticated, setIsAuthenticated } =
     useContext(UserInfoContext);
 
   useEffect(() => {
     handleGetUserInfo().then((response) => {
       if (
+        response &&
         response.detail !== "Not authenticated" &&
         localStorage.getItem("token")
       ) {
@@ -30,7 +31,7 @@ const Router = () => {
       }
     });
     // eslint-disable-next-line
-  }, []);
+  }, [isAuthenticated]);
 
   async function handleGetUserInfo() {
     return await getUserInfo();
@@ -48,11 +49,11 @@ const Router = () => {
             key={route.path}
             path={route.path}
             element={
-              <Suspense fallback={null}>{route.element}</Suspense>
-              // !isAuthenticated ? (
-              // ) : (
-              //   <Navigate to="/" />
-              // )
+              !isAuthenticated ? (
+                <Suspense fallback={null}>{route.element}</Suspense>
+              ) : (
+                <Navigate to="/" />
+              )
             }
           />
         ))}
@@ -61,11 +62,11 @@ const Router = () => {
             key={route.path}
             path={route.path}
             element={
-              <Suspense fallback={null}>{route.element}</Suspense>
-              // isAuthenticated ? (
-              // ) : (
-              //   <Navigate to="/login" />
-              // )
+              isAuthenticated ? (
+                <Suspense fallback={null}>{route.element}</Suspense>
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
         ))}

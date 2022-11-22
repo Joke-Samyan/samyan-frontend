@@ -43,6 +43,7 @@
       }
 
       button {
+        height: $button-height;
         color: white;
         font-size: 0.8rem;
         border-top-left-radius: 0;
@@ -51,6 +52,7 @@
     }
 
     .create-dataset-btn {
+      height: $button-height;
       color: white;
       margin-left: 20px;
       font-size: 0.9rem;

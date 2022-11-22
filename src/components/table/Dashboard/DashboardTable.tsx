@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
@@ -21,10 +21,13 @@ import DashboardTableHead from "./DashboardTableHead";
 import { datasetData } from "../../../data/datasetData";
 import { useNavigate } from "react-router-dom";
 import ExportCSVButton from "../../button/ExportCSVButton";
+import { DatasetContext } from "../../../contexts/DatasetContext";
+import { getAllDataset } from "../../../apis/dataset";
 
 export default function DashboardTable() {
   const navigate = useNavigate();
-  const [dataset] = useState<IDataset[]>(datasetData);
+  const { datasetContext, setDatasetContext } = useContext(DatasetContext);
+  const [dataset, setDataset] = useState<IDataset[]>(datasetData);
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<string>("description");
   const [selected, setSelected] = useState<readonly string[]>([]);
@@ -34,8 +37,29 @@ export default function DashboardTable() {
   const [selectedDataset, setSelectedDataset] = useState<IDataset | null>(null);
 
   useEffect(() => {
+    let isSubscribed = true;
+    handleGetAllDataset().then((response: IDataset[]) => {
+      console.log(response);
+
+      if (isSubscribed && Array.isArray(response)) {
+        setDatasetContext(response);
+        setDataset(response);
+      }
+    });
+
+    return () => {
+      isSubscribed = false;
+    };
     // eslint-disable-next-line
   }, []);
+
+  async function handleGetAllDataset(): Promise<any> {
+    try {
+      return await getAllDataset();
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  }
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -172,9 +196,6 @@ export default function DashboardTable() {
                         padding="none"
                       >
                         {row.description.toString()}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {row.prelabel}
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         <Stack direction={"row"} justifyContent={"flex-end"}>

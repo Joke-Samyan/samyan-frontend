@@ -64,7 +64,9 @@ const TopupLanding = () => {
       <div className="login-body">
         <div className="login-card-container">
           <h2 className="card-header">กระเป๋าตังของคุณ</h2>
-          <h2 className="card-header">{userInfoContext.balance} บาท</h2>
+          <h2 className="card-header">
+            {userInfoContext.balance.toFixed(2)} บาท
+          </h2>
           <div style={{ padding: "10px" }}>
             <TextField
               style={{ width: "30%" }}

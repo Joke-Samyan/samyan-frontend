@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { IDataset } from "./IDataset";
 
 export interface TableProps {
   numSelected: number;

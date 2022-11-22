@@ -30,7 +30,13 @@ const Navbar = () => {
 
   return (
     <div className="navbar-container">
-      <h2>KODWANG </h2>
+      <h2
+        onClick={() => {
+          navigate("/dashboard");
+        }}
+      >
+        KODWANG
+      </h2>
       <img
         className="logo"
         src={require("../../assets/images/kodwang-logo.png")}
@@ -39,7 +45,7 @@ const Navbar = () => {
       {isAuthenticated && (
         <div className="right-content">
           <div className="btn-container">
-            <p>{userInfoContext.balance} บาท</p>
+            <p>{userInfoContext.balance.toFixed(2)} บาท</p>
             <button onClick={navigateToTopup}>กระเป๋าตัง</button>
           </div>
           <button

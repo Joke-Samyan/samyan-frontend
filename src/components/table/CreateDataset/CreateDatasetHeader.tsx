@@ -2,23 +2,28 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TableHead from "@mui/material/TableHead";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
 import { StyledTableCell, StyledTableRow } from "../TableStyle";
 import { TableProps } from "../../../interfaces/table.interface";
 
 const headCells = [
   {
-    id: "description",
+    id: "entryUrl",
     numeric: false,
-    disablePadding: true,
-    label: "Dataset Description",
+    disablePadding: false,
+    label: "Entry Url",
   },
   {
-    id: "labelled entries",
+    id: "entry",
     numeric: true,
     disablePadding: false,
-    label: "Labelled Entries",
+    label: "Entry",
+  },
+  {
+    id: "entryType",
+    numeric: true,
+    disablePadding: false,
+    label: "Type",
   },
   {
     id: "actions",
@@ -28,15 +33,8 @@ const headCells = [
   },
 ];
 
-export default function DashboardTableHead(props: TableProps) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
+export default function CreateDatasetTableHead(props: TableProps) {
+  const { order, orderBy, onRequestSort } = props;
 
   const createSortHandler =
     (property: string) => (event: React.MouseEvent<unknown>) => {
@@ -46,21 +44,6 @@ export default function DashboardTableHead(props: TableProps) {
   return (
     <TableHead>
       <StyledTableRow>
-        <StyledTableCell padding="checkbox">
-          <Checkbox
-            sx={{
-              "&.Mui-checked": {
-                color: "#004bbc",
-              },
-            }}
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          />
-        </StyledTableCell>
         {headCells.map((headCell) => (
           <StyledTableCell
             key={headCell.id}
@@ -72,20 +55,6 @@ export default function DashboardTableHead(props: TableProps) {
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
-              // sx={{
-              //   "&.MuiTableSortLabel-root": {
-              //     color: "white",
-              //   },
-              //   "&.MuiTableSortLabel-root:hover": {
-              //     color: "#ccc",
-              //   },
-              //   "&.Mui-active": {
-              //     color: "white",
-              //   },
-              //   "& .MuiTableSortLabel-icon": {
-              //     color: "white !important",
-              //   },
-              // }}
             >
               {headCell.label}
               {orderBy === headCell.id ? (

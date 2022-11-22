@@ -2,7 +2,7 @@ import { FC } from "react";
 // import ReactS3Client from "react-aws-s3-typescript";
 // import { s3Config } from "../../../s3Config";
 import { useLocation, useNavigate } from "react-router-dom";
-import HomeScreenNavbar from "../../components/navbar/HomeScreenNavbar";
+// import HomeScreenNavbar from "../../components/navbar/HomeScreenNavbar";
 import "./homeScreen.scss";
 
 const HomeScreen: FC = () => {
@@ -59,11 +59,11 @@ const HomeScreen: FC = () => {
   // }
   return (
     <div className="landing-container1">
-      <HomeScreenNavbar />
+      {/* <HomeScreenNavbar /> */}
       <h2 className="card-header">สมัครเป็นคน โคตรว่าง</h2>
       <h2 className="card-header">เพื่อหารายได้ในตอนที่คุณโคตรว่างจริงๆ</h2>
       <div className="registerButton">
-      <button onClick={navigateToRegister}>สมัครเลย!</button>
+        <button onClick={navigateToRegister}>สมัครเลย!</button>
         {/* <div>React S3 File Upload</div>
         <input type="file" onChange={handleChangeFile} />
         <button onClick={() => uploadFileToS3(selectedFile)}>

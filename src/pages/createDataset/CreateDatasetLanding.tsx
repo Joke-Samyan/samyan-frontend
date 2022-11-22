@@ -1,29 +1,31 @@
-import { ChangeEvent, FormEvent, Fragment, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
-import ReactS3Client from "react-aws-s3-typescript";
 import "./createDataset.scss";
-import { AddCircle, Delete } from "@mui/icons-material";
-import { IDataset, IEntry } from "../../interfaces/IDataset";
-import { Divider, TextField } from "@mui/material";
+import { IDataset } from "../../interfaces/IDataset";
+import { Autocomplete, Box, Divider, TextField } from "@mui/material";
 import { createDataset } from "../../apis/dataset";
+import CreateDatasetTable from "../../components/table/CreateDataset/CreateDatasetTable";
+import { ClipLoader } from "react-spinners";
+import { CheckCircle } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
-const s3Config = {
-  bucketName: process.env.REACT_APP_BUCKET_NAME || "test",
-  dirName: "images",
-  region: process.env.REACT_APP_REGION || "test",
-  accessKeyId: process.env.REACT_APP_ACCESS || "test",
-  secretAccessKey: process.env.REACT_APP_SECRET || "test",
-};
+const PRELABEL_OPTIONS = [
+  { value: "IC", label: "IC" },
+  { value: "OCR", label: "OCR" },
+];
 
 const CreateDatasetLanding = () => {
+  const navigate = useNavigate();
   const [newDataset, setNewDataset] = useState<IDataset>({
     description: "",
     reward_dataset: 0,
     prelabel: "IC",
     entries: [],
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
-  const { description, reward_dataset, entries } = newDataset;
+  const { description, reward_dataset } = newDataset;
 
   function onNewDatasetChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -37,60 +39,31 @@ const CreateDatasetLanding = () => {
     });
   }
 
-  function handleAddEntry() {
-    setNewDataset({
-      ...newDataset,
-      entries: [...entries, { entry: "", entry_type: "multipleChoice" }],
-    });
-  }
-
-  async function handleUploadEntry(
-    event: ChangeEvent<HTMLInputElement>,
-    entryIndex: number
-  ) {
-    const s3 = new ReactS3Client(s3Config);
-    const files = event.currentTarget.files;
-
-    if (files) {
-      try {
-        const res = await s3.uploadFile(files[0], files[0].name);
-
-        const oldEntries: IEntry[] = newDataset.entries;
-        oldEntries[entryIndex].entry = res.location;
-        oldEntries[entryIndex].entry_type = "image";
-        setNewDataset({ ...newDataset, entries: oldEntries });
-      } catch (exception) {
-        console.log(exception);
-      }
-    } else {
-      console.log("file cannot be null");
-    }
-  }
+  // function handleAddEntry() {
+  //   setNewDataset({
+  //     ...newDataset,
+  //     entries: [...entries, { entry: "", entry_type: "multipleChoice" }],
+  //   });
+  // }
 
   async function handleFormSubmit(
     event: FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
+    setIsLoading(true);
 
     try {
       const requestBody = JSON.stringify(newDataset);
 
       await createDataset(requestBody).then((response) => {
         console.log(response);
+        setIsSuccess(true);
       });
     } catch (error: any) {
       console.error(error.message);
     }
-  }
 
-  function handleRemoveEntry(entryIndex: number) {
-    setNewDataset({
-      ...newDataset,
-      entries: [
-        ...newDataset.entries.slice(0, entryIndex),
-        ...newDataset.entries.slice(entryIndex + 1),
-      ],
-    });
+    setIsLoading(false);
   }
 
   return (
@@ -102,9 +75,9 @@ const CreateDatasetLanding = () => {
           onSubmit={handleFormSubmit}
         >
           <h2 className="card-header">สร้างชุดข้อมูล</h2>
-          <div style={{ padding: "10px" }}>
+          <div className="create-dataset-input-field">
             <TextField
-              // style={{ width: "30%" }}
+              sx={{ mr: 1 }}
               className="login-input"
               id="outlined-basic"
               label="ชื่อชุดข้อมูล"
@@ -113,77 +86,83 @@ const CreateDatasetLanding = () => {
               value={description}
               name={"description"}
               onChange={(event) => onNewDatasetChange(event)}
+              fullWidth
+              required
+            />
+            <Autocomplete
+              disablePortal
+              id="prelabel-autocomplete"
+              options={PRELABEL_OPTIONS}
+              sx={{ minWidth: 120 }}
+              size={"small"}
+              renderInput={(params) => (
+                <TextField {...params} label="Prelabel" />
+              )}
+              value={{
+                value: newDataset.prelabel,
+                label: newDataset.prelabel,
+              }}
+              isOptionEqualToValue={(option, value) =>
+                option.value === value.value
+              }
+              onChange={(event, newValue) => {
+                if (newValue) {
+                  setNewDataset({ ...newDataset, prelabel: newValue.value });
+                }
+              }}
             />
           </div>
-          <div style={{ padding: "10px" }}>
-            <TextField
-              // style={{ width: "30%" }}
-              className="login-input"
-              id="outlined-basic"
-              label="prelabel"
-              variant="outlined"
-              size="small"
-              value={"IC"}
-              disabled
-              // name={"description"}
-              // onChange={(event) => onNewDatasetChange(event)}
-            />
-          </div>
-          <div
-            style={{ display: "flex", alignItems: "center" }}
-            onClick={handleAddEntry}
+          <CreateDatasetTable
+            newDataset={newDataset}
+            setNewDataset={setNewDataset}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              width: 1,
+              maxWidth: 720,
+              justifyContent: "flex-end",
+            }}
           >
-            <AddCircle />
-            เพิ่ม Data Entry
-          </div>
-          {newDataset.entries.map((entry: IEntry, entryIndex) => (
-            <div key={entryIndex} className="new-entry">
-              {entry.entry && (
-                <Fragment>
-                  <img
-                    src={entry.entry}
-                    alt={"entry link"}
-                    className="entry-image"
-                  />
-                  <p>{entry.entry.slice(0, 60)}</p>
-                </Fragment>
-              )}
-              {!entry.entry && (
-                <input
-                  type="file"
-                  onChange={(event) => {
-                    handleUploadEntry(event, entryIndex);
-                  }}
-                />
-              )}
-              <Delete
-                onClick={() => {
-                  handleRemoveEntry(entryIndex);
-                }}
-              />
-            </div>
-          ))}
-          <div style={{ padding: "10px" }}>
             <TextField
-              // style={{ width: "30%" }}
               type="number"
+              sx={{ width: 120 }}
               className="login-input"
               id="outlined-basic"
-              label="ราคาค่าตอบแทนรวม"
+              label="ค่าตอบแทน"
               variant="outlined"
               size="small"
               value={reward_dataset}
               name={"reward_dataset"}
               onChange={(event) => onNewDatasetChange(event)}
             />
-          </div>
+          </Box>
 
           <div style={{ width: "100%", padding: "20px 0 20px 0" }}>
             <Divider sx={{ borderBottomWidth: "2px", bgcolor: "#777" }} />
           </div>
 
           <div className="submit-btn-container">
-            <button type="submit">สร้างชุดข้อมูล</button>
+            {!isLoading && !isSuccess && (
+              <button type="submit">สร้างชุดข้อมูล</button>
+            )}
+            {!isLoading && isSuccess && (
+              <Box>
+                <CheckCircle sx={{ fontSize: 60, color: "#004BBC" }} />
+                <p>Done !</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  GO BACK
+                </button>
+              </Box>
+            )}
+            {isLoading && !isSuccess && (
+              <ClipLoader size={60} color="#004BBC" />
+            )}
           </div>
         </form>
       </div>

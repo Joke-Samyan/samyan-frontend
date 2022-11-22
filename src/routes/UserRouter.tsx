@@ -4,8 +4,7 @@ const LazyLanding = lazy(() => import("../pages/landing/Landing"));
 const LazyCreatedDataset = lazy(
   () => import("../pages/createDataset/CreateDatasetLanding")
 );
-const LazyLabelImage = lazy(() => import("../pages/labelDataset/LabelImage"));
-const LabelText = lazy(() => import("../pages/labelDataset/LabelText"));
+const LabelEntry = lazy(() => import("../pages/labelDataset/LabelEntry"));
 const LazyTopUp = lazy(() => import("../pages/topup/Topup"));
 const LazyDashboard = lazy(() => import("../pages/dashboard/Dashboard"));
 const LazyDatasetSummary = lazy(
@@ -22,12 +21,8 @@ const UserRouter = [
     element: <LazyCreatedDataset />,
   },
   {
-    path: "/label-image/:dataset_id/:description",
-    element: <LazyLabelImage />,
-  },
-  {
-    path: "/label-text",
-    element: <LabelText />,
+    path: "/label-entry/:dataset_id/:description",
+    element: <LabelEntry />,
   },
   {
     path: "/topup",

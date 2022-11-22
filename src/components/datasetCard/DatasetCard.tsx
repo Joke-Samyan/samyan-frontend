@@ -45,7 +45,7 @@ const DatasetCard: ForwardRefRenderFunction<HTMLDivElement, IDataset> = (
     <div
       ref={ref}
       onClick={() => {
-        navigate(`/label-image/${dataset_id}/${description}`);
+        navigate(`/label-entry/${dataset_id}/${description}`);
       }}
     >
       <div className="card-container">

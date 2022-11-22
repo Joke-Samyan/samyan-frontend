@@ -165,14 +165,25 @@ export default function DatasetTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.entry.toString()}
+                        {/* <Stack direction={"row"} justifyContent={"flex-end"}>
+                        </Stack> */}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <img
+                            src={row.entry}
+                            alt={"entry image url"}
+                            style={{
+                              height: 42,
+                              objectFit: "contain",
+                            }}
+                          />
+                        </div>
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         {row.entry_type}
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         <Stack direction={"row"} justifyContent={"flex-end"}>
-                          {row.reward}
+                          {row.prelabel ? row.prelabel : "-"}
                         </Stack>
                       </StyledTableCell>
                       <StyledTableCell align="right">
