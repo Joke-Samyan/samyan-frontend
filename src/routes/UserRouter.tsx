@@ -5,7 +5,7 @@ const LazyCreatedDataset = lazy(
   () => import("../pages/createDataset/CreateDatasetLanding")
 );
 const LabelEntry = lazy(() => import("../pages/labelDataset/LabelEntry"));
-const LazyTopUp = lazy(() => import("../pages/topup/Topup"));
+// const LazyTopUp = lazy(() => import("../pages/topup/Topup"));
 const LazyDashboard = lazy(() => import("../pages/dashboard/Dashboard"));
 const LazyDatasetSummary = lazy(
   () => import("../pages/dashboard/DatasetSummary")
@@ -24,10 +24,10 @@ const UserRouter = [
     path: "/label-entry/:dataset_id/:description",
     element: <LabelEntry />,
   },
-  {
-    path: "/topup",
-    element: <LazyTopUp />,
-  },
+  // {
+  //   path: "/topup",
+  //   element: <LazyTopUp />,
+  // },
   {
     path: "/dashboard",
     element: <LazyDashboard />,
